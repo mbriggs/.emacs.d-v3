@@ -35,9 +35,12 @@
                  defuns
                  keybinds
 
+                 conf-evil
                  conf-company
                  conf-erc
+                 conf-parens
                  conf-flycheck
+                 conf-volatile
                  conf-ido
                  conf-markdown
                  conf-sass

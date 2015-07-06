@@ -29,8 +29,13 @@
 (depends-on "company")
 (depends-on "ace-jump-mode")
 (depends-on "volatile-highlights")
+(depends-on "evil")
+(depends-on "evil-surround")
+(depends-on "evil-indent-textobject")
+(depends-on "rainbow-mode")
 
 ;;; tools
+(depends-on "ag")
 (depends-on "magit")
 (depends-on "prodigy")
 (depends-on "httprepl")
