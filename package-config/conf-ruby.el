@@ -1,6 +1,6 @@
-(add-to-list 'auto-mode-alist '("\\.rb$" . enh-ruby-mode))
-(add-to-list 'auto-mode-alist '("\\.rabl$" . enh-ruby-mode))
-(add-to-list 'interpreter-mode-alist '("ruby" . enh-ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.rabl$" . ruby-mode))
+(add-to-list 'interpreter-mode-alist '("ruby" . ruby-mode))
 
 (defun ruby-method-space-replace ()
   "When pressing space while naming a defined method, insert an underscore"
@@ -12,10 +12,10 @@
       (insert "_")
     (insert " ")))
 
-(eval-after-load "enh-ruby-mode"
+(eval-after-load "ruby-mode"
   '(progn
-    (define-key enh-ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent)
-    (define-key enh-ruby-mode-map (kbd "SPC") 'ruby-method-space-replace)))
+    (define-key ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent)
+    (define-key ruby-mode-map (kbd "SPC") 'ruby-method-space-replace)))
 
 (eval-after-load "rspec-mode"
   '(progn

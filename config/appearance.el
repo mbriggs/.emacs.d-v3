@@ -46,13 +46,6 @@
 (require 'highlight-cl)
 (add-hook 'emacs-lisp-mode-hook 'highlight-cl-add-font-lock-keywords)
 
-(require 'column-enforce-mode)
-(defvar *dont-column-enforce* '(shell-mode prodigy-mode term-mode eshell-mode emacs-pager-mode))
-
-(add-hook 'after-change-major-mode-hook
-          '(lambda ()
-             (unless (-contains? *dont-column-enforce* major-mode) (100-column-rule))))
-
 (defmacro with-theme-colors (&rest body)
   `(let ((green "#6aaf50")
          (dark-green "#057f40")
@@ -91,8 +84,8 @@
 
 (with-theme-colors
  (defface  my-parens       `((((class color)) (:foreground ,dark-gray))) "custom parens"  :group 'faces)
- (defface  my-braces       `((((class color)) (:foreground ,green))) "custom braces"  :group 'faces)
- (defface  my-brackets     `((((class color)) (:foreground ,green))) "custom brackets" :group 'faces)
+ (defface  my-braces       `((((class color)) (:foreground ,gray))) "custom braces"  :group 'faces)
+ (defface  my-brackets     `((((class color)) (:foreground ,gray))) "custom brackets" :group 'faces)
  (defface  my-dot          `((((class color)) (:foreground ,dark-gray))) "custom brackets" :group 'faces)
  (defface  my-semis        `((((class color)) (:foreground ,dark-gray))) "custom semicolons" :group 'faces)
  (defface  my-double-quote `((((class color)) (:foreground ,green))) "custom special" :group 'faces))
@@ -106,7 +99,6 @@
                                  term-mode
                                  eshell-mode
                                  deft-mode
-                                 ruby-mode
                                  haml-mode
                                  web-mode
                                  gfm-mode
@@ -129,6 +121,22 @@
 
 (add-hook 'after-change-major-mode-hook 'tweak-syntax)
 
+
+;;; parens
+(with-theme-colors
+ (custom-theme-set-faces 'ample
+                         `(show-paren-match ((t (:background ,darkest-gray :foreground ,orange))))
+                         `(sp-show-pair-enclosing ((t (:background ,darkest-gray :foreground ,blue))))
+                         `(sp-wrap-overlay-face ((t (:background ,darkest-gray))))
+                         `(sp-wrap-tag-overlay-face ((t (:background ,darkest-gray))))
+                         `(sp-pair-overlay-face ((t (:background ,darkest-gray))))
+                         `(sp-show-pair-match-face ((t (:background ,darkest-gray :foreground ,blue))))))
+
+
+(with-theme-colors
+ (custom-theme-set-faces 'ample
+                         `(trailing-whitespace ((t (:background ,darker-gray))))
+                         `(column-enforce-face ((t (:underline ,darker-gray))))))
 
 
 

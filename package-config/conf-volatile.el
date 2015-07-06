@@ -8,6 +8,6 @@
 
 (with-theme-colors
  (set-face-attribute 'vhl/default-face nil
-                     :background darkest-gray))
+                     :background darker-gray))
 
 (provide 'conf-volatile)

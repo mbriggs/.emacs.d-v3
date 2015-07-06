@@ -2,11 +2,6 @@
 (show-smartparens-global-mode +1)
 (smartparens-global-mode +1)
 
-(with-theme-colors
- (custom-theme-set-faces 'ample
-                         `(show-paren-match ((t (:background ,darkest-gray :foreground ,orange))))
-                         `(sp-show-pair-enclosing ((t (:background ,darkest-gray :foreground ,blue))))
-                         `(sp-show-pair-match-face ((t (:background ,darkest-gray :foreground ,blue))))))
 
 (define-key sp-keymap (kbd "M-k") 'sp-kill-sexp)
 (define-key sp-keymap (kbd "M-K") 'sp-backward-kill-sexp)
