@@ -6,4 +6,9 @@
 (require 'session)
 (session-initialize)
 
+(require 'projectile)
+(projectile-global-mode)
+
+(require 'ace-jump-mode)
+
 (provide 'global-modes)

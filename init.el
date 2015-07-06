@@ -35,6 +35,7 @@
                  appearance
                  global-modes
                  defuns
+                 keybinds
 
                  conf-company
                  conf-erc

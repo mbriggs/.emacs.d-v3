@@ -7,7 +7,9 @@
 
 ;;; utility
 (depends-on "bind-key")
+(depends-on "free-keys")
 (depends-on "projectile")
+(depends-on "ace-jump-mode")
 (depends-on "yasnippet")
 (depends-on "smex")
 (depends-on "git-timemachine")

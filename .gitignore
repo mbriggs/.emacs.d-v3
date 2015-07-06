@@ -2,4 +2,5 @@ recentf
 auto-save-list
 var
 .cask
-.ido.last
+ido.last
+.session
