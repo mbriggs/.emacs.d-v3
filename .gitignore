@@ -4,3 +4,5 @@ var
 .cask
 ido.last
 .session
+projectile-bookmarks.eld
+projectile.cache

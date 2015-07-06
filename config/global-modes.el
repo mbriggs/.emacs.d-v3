@@ -3,10 +3,8 @@
 (require 'volatile-highlights)
 (volatile-highlights-mode t)
 
-(require 'session)
-(session-initialize)
-
 (require 'projectile)
+(setq projectile-enable-caching t)
 (projectile-global-mode)
 
 (require 'ace-jump-mode)

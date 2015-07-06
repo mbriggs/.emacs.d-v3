@@ -16,7 +16,6 @@
 (depends-on "ample-theme")
 (depends-on "open-github-from-here" :git "http://github.com/mbriggs/emacs-open-github-from-here.git")
 (depends-on "discover-my-major" :git "http://github.com/steckerhalter/discover-my-major.git")
-(depends-on "session")
 
 ;;; editor
 (depends-on "drag-stuff")

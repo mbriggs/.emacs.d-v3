@@ -25,8 +25,6 @@
 (setq mac-command-modifier 'meta)
 (setq mac-option-modifier nil)
 
-(modify-all-frames-parameters '((fullscreen . maximized)))
-
 (when (memq window-system '(mac ns))
   (require 'exec-path-from-shell)
   (exec-path-from-shell-initialize))
@@ -43,6 +41,7 @@
                  conf-ido
                  conf-markdown
                  conf-sass
+                 conf-ruby
                  conf-web
                  conf-yasnippets))
 
@@ -55,3 +54,4 @@
   (server-start))
 (setq custom-file "~/.emacs.d/config/custom.el")
 (load custom-file)
+(modify-all-frames-parameters '((fullscreen . maximized)))
