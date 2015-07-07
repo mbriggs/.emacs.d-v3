@@ -25,6 +25,7 @@
 (bind-key "M-n" 'next-error)
 (bind-key "M-P" 'session-jump-to-last-change)
 (bind-key "M-p" 'previous-error)
+(bind-key "M-t" 'projectile-switch-project)
 (bind-key "M-j" 'evil-window-next)
 (bind-key "C-SPC" 'comment-or-uncomment-region-or-line)
 (bind-key "M-o" 'projectile-find-file)

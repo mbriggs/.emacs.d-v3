@@ -137,6 +137,7 @@
 (with-theme-colors
  (custom-theme-set-faces 'ample
                          `(trailing-whitespace ((t (:background ,darker-gray))))
+                         `(anzu-mode-line ((t (:foreground ,orange))))
                          `(column-enforce-face ((t (:underline ,darker-gray))))))
 
 
