@@ -71,6 +71,7 @@
 
 ;;; linting
 (depends-on "flycheck")
+(depends-on "flycheck-color-mode-line")
 (depends-on "flycheck-cask")
 (depends-on "rubocop")
 

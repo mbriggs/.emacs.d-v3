@@ -5,8 +5,10 @@
 (add-hook 'emacs-lisp-mode-hook 'flycheck-mode)
 (add-hook 'lisp-interaction-mode-hook 'flycheck-mode)
 (add-hook 'js2-mode-hook 'flycheck-mode)
-(add-hook 'enh-ruby-mode-hook 'flycheck-mode)
+(add-hook 'ruby-mode-hook 'flycheck-mode)
 (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
 (setq flycheck-indication-mode nil)
+(eval-after-load "flycheck"
+  '(add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode))
 
 (provide 'conf-flycheck)

@@ -16,6 +16,8 @@
 (defun tab-indent-or-complete ()
   (interactive)
   (cond
+   ((string= mode-name "Magit")
+    (magit-section-toggle (magit-current-section)))
    ((minibufferp)
     (minibuffer-complete))
    (t

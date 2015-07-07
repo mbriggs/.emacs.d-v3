@@ -34,6 +34,7 @@
                  global-modes
                  defuns
                  keybinds
+                 modeline
 
                  conf-evil
                  conf-company
