@@ -31,6 +31,8 @@
 (bind-key "M-o" 'projectile-find-file)
 (bind-key "C-p" 'switch-to-local-project)
 (bind-key "M-`" 'other-frame)
+(bind-key "M-<up>" 'er/expand-region)
+(bind-key "M-<down>" 'er/contract-region)
 
 ;;; normal
 
