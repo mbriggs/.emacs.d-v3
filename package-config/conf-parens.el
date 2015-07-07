@@ -2,7 +2,6 @@
 (show-smartparens-global-mode +1)
 (smartparens-global-mode +1)
 
-
 (define-key sp-keymap (kbd "M-k") 'sp-kill-sexp)
 (define-key sp-keymap (kbd "M-K") 'sp-backward-kill-sexp)
 (define-key sp-keymap (kbd "M-L") 'sp-backward-barf-sexp)

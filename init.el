@@ -38,6 +38,7 @@
                  conf-evil
                  conf-company
                  conf-erc
+                 conf-snippets
                  conf-parens
                  conf-flycheck
                  conf-volatile
@@ -45,8 +46,7 @@
                  conf-markdown
                  conf-sass
                  conf-ruby
-                 conf-web
-                 conf-yasnippets))
+                 conf-web))
 
 (let ((secret-path (expand-file-name "~/Dropbox/secrets.el")))
   (when (file-exists-p secret-path)

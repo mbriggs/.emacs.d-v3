@@ -133,6 +133,7 @@
                          `(sp-show-pair-match-face ((t (:background ,darkest-gray :foreground ,blue))))))
 
 
+;;; general
 (with-theme-colors
  (custom-theme-set-faces 'ample
                          `(trailing-whitespace ((t (:background ,darker-gray))))

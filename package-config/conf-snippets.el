@@ -8,4 +8,8 @@
 (autoload 'aya-create "auto-yasnippet")
 (autoload 'aya-expand "auto-yasnippet")
 
-(provide 'conf-yasnippets)
+
+(define-key evil-insert-state-map (kbd "M-y") 'aya-expand)
+(define-key evil-visual-state-map (kbd "M-Y") 'aya-create)
+
+(provide 'conf-snippets)
