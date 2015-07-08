@@ -33,6 +33,7 @@
 (bind-key "M-`" 'other-frame)
 (bind-key "M-<up>" 'er/expand-region)
 (bind-key "M-<down>" 'er/contract-region)
+(bind-key "M-'" 'toggle-quotes)
 
 ;;; normal
 
@@ -113,7 +114,7 @@
         ("gist"                     . yagist-region-or-buffer)
         ("gistp"                    . yagist-region-or-buffer-private)
         ("erc"                      . start-erc)
-        ("sh"                       . ansi-term)
+        ("sh"                       . eshell)
         ("mx"                       . smex)
         ("mysql"                    . sql-mysql)
         ("[gh]github"               . open-github-from-here)

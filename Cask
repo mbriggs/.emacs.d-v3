@@ -25,6 +25,7 @@
 (depends-on "idle-highlight-mode")
 (depends-on "smartparens")
 (depends-on "anzu")
+(depends-on "toggle-quotes")
 (depends-on "column-enforce-mode")
 (depends-on "company-mode")
 (depends-on "company-statistics")
