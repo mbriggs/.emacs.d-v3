@@ -1,5 +1,3 @@
-
-
 (global-set-key (kbd "M-;") 'ace-jump-word-mode)
 (define-key evil-normal-state-map (kbd "M-.") nil)
 (define-key evil-normal-state-map (kbd "C-p") nil)
@@ -10,7 +8,12 @@
 (define-key evil-motion-state-map (kbd "SPC") #'evil-ace-jump-word-mode)
 (define-key evil-operator-state-map (kbd "SPC") #'evil-ace-jump-word-mode)
 
+(mapc
+ (lambda (mode) (push mode evil-emacs-state-modes))
+ '(git-commit-mode
+   neotree-mode))
 
+(add-hook 'magit-blame-mode-hook 'evil-insert-state)
 
 ;; between
 

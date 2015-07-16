@@ -16,6 +16,12 @@
 (depends-on "ample-theme")
 (depends-on "open-github-from-here" :git "http://github.com/mbriggs/emacs-open-github-from-here.git")
 (depends-on "discover-my-major" :git "http://github.com/steckerhalter/discover-my-major.git")
+(depends-on "2048-game")
+(depends-on "etags-select")
+(depends-on "neotree")
+(depends-on "evil-ranger")
+(depends-on "paradox")
+
 
 ;;; editor
 (depends-on "drag-stuff")
@@ -27,7 +33,7 @@
 (depends-on "anzu")
 (depends-on "toggle-quotes")
 (depends-on "column-enforce-mode")
-(depends-on "company-mode")
+(depends-on "company")
 (depends-on "company-statistics")
 (depends-on "ace-jump-mode")
 (depends-on "volatile-highlights")
@@ -79,6 +85,7 @@
 ;;; libs
 (depends-on "dash")
 (depends-on "f")
+(depends-on "ht")
 (depends-on "popwin")
 (depends-on "s")
 (depends-on "gh")
@@ -87,6 +94,8 @@
 (depends-on "enh-ruby-mode")
 (depends-on "rbenv")
 (depends-on "bundler")
+(depends-on "robe")
 (depends-on "rspec-mode")
 (depends-on "ruby-refactor")
 (depends-on "inf-ruby")
+(depends-on "ruby-guard")

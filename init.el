@@ -44,6 +44,7 @@
                  conf-flycheck
                  conf-volatile
                  conf-ido
+                 conf-neotree
                  conf-markdown
                  conf-sass
                  conf-ruby

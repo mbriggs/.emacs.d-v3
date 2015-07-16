@@ -15,7 +15,7 @@
                              face mode-line-filename-face)
                 " "
                                         ; read-only or modified status
-                 (:eval
+                (:eval
                  (cond (buffer-read-only
                         (propertize " !RO " 'face 'mode-line-read-only-face))
                        ((buffer-modified-p)
@@ -40,7 +40,6 @@
                                     (t
                                      'mode-line-mode-face))))
                 ") "
-                                        ; mode indicators: vc, recursive edit, major mode, minor modes, process, global
                 (:propertize (vc-mode vc-mode)
                              face mode-line-minor-mode-face)
 
@@ -49,8 +48,6 @@
                 (:propertize mode-line-process
                              face mode-line-process-face)
                 (global-mode-string global-mode-string)
-                                        ; nyan-mode uses nyan cat as an alternative to %p
-                ;; (:eval (when nyan-mode (list (nyan-create))))
                 ))
 
 

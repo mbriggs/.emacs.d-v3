@@ -1,3 +1,5 @@
+(require 'dash)
+(require 's)
 (eval-after-load "dash" '(dash-enable-font-lock))
 
 (defun split-window-right-and-move-there ()
@@ -31,6 +33,12 @@
         (indent-for-tab-command))
     (evil-ret)))
 
+(defvar *test-patterns* '(("\\.rb$" . "_spec.rb")
+                          ("\\.js$" . "-test.js")))
+(defun testfilep (filename)
+  )
+(defun find-test-file ()
+  (find-file (expand-file-name file (projectile-project-root))))
 
 
 (defun rotate-windows ()
@@ -193,11 +201,10 @@ region-end is used."
     (cd dir)
     (message (concat "Set the current buffer directory to " dir))))
 
-(defun what-face (pos)
-  (interactive "d")
+(defun what-face ()
   (let ((face (or (get-char-property (point) 'read-face-name)
                   (get-char-property (point) 'face))))
-    (if face (message "Face: %s" face) (message "No face at %d" pos))))
+    (if face (symbol-name face) "")))
 
 (defun my-delete-backwards ()
   (interactive)

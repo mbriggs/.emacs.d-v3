@@ -17,15 +17,14 @@
 (bind-key "M-W" 'only-current-buffer)
 (bind-key "M-q" 'save-buffers-kill-emacs)
 (bind-key "<f1>" 'magit-status)
-(bind-key "<f8>" 'magit-blame-mode)
+(bind-key "<f8>" 'magit-blame)
 (bind-key "M-." 'etags-select-find-tag)
 (bind-key "<f3>" 'flycheck-list-errors)
 (bind-key "C-f" 'dired)
 (bind-key "M-v" 'evil-paste-after)
 (bind-key "M-n" 'next-error)
-(bind-key "M-P" 'session-jump-to-last-change)
 (bind-key "M-p" 'previous-error)
-(bind-key "M-t" 'projectile-switch-project)
+(bind-key "M-P" 'projectile-switch-project)
 (bind-key "M-j" 'evil-window-next)
 (bind-key "C-SPC" 'comment-or-uncomment-region-or-line)
 (bind-key "M-o" 'projectile-find-file)
@@ -49,6 +48,7 @@
   (kbd "H") 'evil-first-non-blank
   (kbd "Y") 'copy-to-end-of-line
   (kbd "L") 'evil-last-non-blank
+  (kbd "gt") 'show-sidebar
   (kbd "<tab>") 'indent-for-tab-command
   (kbd "<C-return>") 'new-line-in-normal-mode)
 
