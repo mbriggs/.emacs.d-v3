@@ -19,11 +19,12 @@
 (depends-on "2048-game")
 (depends-on "etags-select")
 (depends-on "neotree")
-(depends-on "evil-ranger")
 (depends-on "paradox")
 
 
 ;;; editor
+(depends-on "highlight-numbers")
+(depends-on "rainbow-identifiers")
 (depends-on "drag-stuff")
 (depends-on "expand-region")
 (depends-on "htmlize")
@@ -65,10 +66,12 @@
 
 ;;; languages
 (depends-on "web-mode")
+(depends-on "alchemist")
 (depends-on "cider")
+(depends-on "tide")
+(depends-on "typescript-mode")
 (depends-on "highlight-cl")
 (depends-on "go-mode" :git "http://github.com/dominikh/go-mode.el.git")
-(depends-on "js2-mode")
 (depends-on "coffee-mode")
 (depends-on "markdown-mode")
 (depends-on "sass-mode")
@@ -99,3 +102,12 @@
 (depends-on "ruby-refactor")
 (depends-on "inf-ruby")
 (depends-on "ruby-guard")
+
+;;; js
+(depends-on "json-mode")
+(depends-on "json-snatcher")
+(depends-on "tern")
+(depends-on "js2-mode")
+(depends-on "js2-refactor")
+(depends-on "js-doc")
+(depends-on "company-tern")

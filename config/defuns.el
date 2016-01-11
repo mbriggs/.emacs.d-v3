@@ -391,5 +391,4 @@ region-end is used."
 (defun scroll-to-bottom ()
   (goto-char (point-max)))
 
-
 (provide 'defuns)

@@ -34,7 +34,7 @@
 (blink-cursor-mode t)
 (show-paren-mode t)
 (column-number-mode t)
-(set-fringe-style '(8 . 0))
+;; (set-fringe-style '(8 . 0))
 (tooltip-mode -1)
 (recentf-mode 1)
 

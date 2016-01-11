@@ -67,6 +67,7 @@
      (global-set-key [(control return)] 'company-complete-common)
 
      (define-key company-active-map [tab] 'expand-snippet-or-complete-selection)
+     (define-key company-active-map [escape] 'company-abort)
      (define-key company-active-map (kbd "TAB") 'expand-snippet-or-complete-selection)))
 
 (eval-after-load "yasnippet"
@@ -76,7 +77,8 @@
 
      (define-key yas-keymap [tab] 'tab-complete-or-next-field)
      (define-key yas-keymap (kbd "TAB") 'tab-complete-or-next-field)
-     (define-key yas-keymap [(control tab)] 'yas-next-field)
+     (define-key yas-keymap [(alt n)] 'yas-next-field)
+     (define-key yas-keymap [(alt p)] 'yas-prev-field)
      (define-key yas-keymap (kbd "C-g") 'abort-company-or-yas)))
 
 (provide 'conf-company)

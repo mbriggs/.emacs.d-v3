@@ -23,7 +23,7 @@
 (setq mac-option-key-is-meta nil)
 (setq mac-command-key-is-meta t)
 (setq mac-command-modifier 'meta)
-(setq mac-option-modifier nil)
+(setq mac-option-modifier 'alt)
 
 (when (memq window-system '(mac ns))
   (require 'exec-path-from-shell)
@@ -48,7 +48,9 @@
                  conf-markdown
                  conf-sass
                  conf-ruby
-                 conf-web))
+                 conf-elixir
+                 conf-web
+                 conf-js))
 
 (let ((secret-path (expand-file-name "~/Dropbox/secrets.el")))
   (when (file-exists-p secret-path)

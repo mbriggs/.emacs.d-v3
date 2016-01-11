@@ -15,8 +15,11 @@
 (eval-after-load 'company
   '(push 'company-robe company-backends))
 (add-hook 'ruby-mode-hook 'robe-mode)
+(add-hook 'ruby-mode-hook 'eldoc-mode)
 (eval-after-load "ruby-mode"
   '(progn
+     (rbenv-use-corresponding)
+     (evil-ex-define-cmd "robe" 'robe-start)
      (define-key ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent)
      (define-key ruby-mode-map (kbd "SPC") 'ruby-method-space-replace)))
 

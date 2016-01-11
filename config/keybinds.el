@@ -50,6 +50,7 @@
   (kbd "L") 'evil-last-non-blank
   (kbd "gt") 'show-sidebar
   (kbd "<tab>") 'indent-for-tab-command
+  (kbd "<return>") 'save-buffer
   (kbd "<C-return>") 'new-line-in-normal-mode)
 
 
@@ -78,6 +79,8 @@
   (kbd "M-d") 'duplicate-line
   (kbd "M-<backspace>") 'kill-whole-line
   (kbd "A-<backspace>") 'backward-kill-word
+  (kbd "A-<left>") 'backward-word
+  (kbd "A-<right>") 'forward-word
   (kbd "M-J") 'evil-join
   (kbd "M-v") 'yank
   (kbd "M-S-<return>") 'evil-open-above

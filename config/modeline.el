@@ -26,7 +26,9 @@
                 ;; mode-line-client
                                         ; directory and buffer/file name
                 " ("
-                (:eval (propertize mode-name 'face
+                (if (eq major-mode 'elixir-mode)
+                    mode-name
+                  (:eval (propertize mode-name 'face
                                    (cond
                                     ((and (bound-and-true-p flycheck-mode)
                                           (flycheck-has-current-errors-p 'error)
@@ -38,7 +40,8 @@
                                     ((bound-and-true-p flycheck-mode)
                                      'mode-line-mode-no-errors-face)
                                     (t
-                                     'mode-line-mode-face))))
+                                     'mode-line-mode-face)))))
+
                 ") "
                 (:propertize (vc-mode vc-mode)
                              face mode-line-minor-mode-face)
@@ -65,6 +68,14 @@
     (when path
       (setq output (concat ".../" output)))
     output))
+
+(defun mlb/flycheck-state-face ()
+  (cond
+   ((flycheck-has-current-errors-p 'error)
+    'mode-line-mode-errors-face)
+   ((flycheck-has-current-errors-p 'warning)
+    'mode-line-mode-warning-face)
+   (t 'mode-line-folder-face)))
 
 ;; ;; Extra mode line faces
 (make-face 'mode-line-read-only-face)

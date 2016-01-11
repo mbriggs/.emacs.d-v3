@@ -1,12 +1,15 @@
 (load-theme 'ample t t)
 (enable-theme 'ample)
 
+
+(add-hook 'prog-mode-hook 'highlight-numbers-mode)
+
 ;; only turn off menus if not osx
 (if (not (eq system-type 'darwin))
     (menu-bar-mode -1))
 
 
-(let ((font (if (featurep 'ns) "Menlo-15" "Menlo-11")))
+(let ((font "Menlo-15"))
   (set-frame-font font)
   (add-to-list 'default-frame-alist
                `(font . ,font)))
@@ -50,6 +53,7 @@
   `(let ((green "#6aaf50")
          (dark-green "#057f40")
          (blue "#5180b3")
+         (white "#bdbdb3")
          (blue-bg "#102843")
          (light-blue "#528fd1")
          (lighter-blue "#68a5e9")
@@ -100,7 +104,6 @@
                                  eshell-mode
                                  deft-mode
                                  haml-mode
-                                 web-mode
                                  gfm-mode
                                  org-mode
                                  erc-mode))
@@ -125,12 +128,13 @@
 ;;; parens
 (with-theme-colors
  (custom-theme-set-faces 'ample
-                         `(show-paren-match ((t (:background ,darkest-gray :foreground ,orange))))
-                         `(sp-show-pair-enclosing ((t (:background ,darkest-gray :foreground ,blue))))
-                         `(sp-wrap-overlay-face ((t (:background ,darkest-gray))))
-                         `(sp-wrap-tag-overlay-face ((t (:background ,darkest-gray))))
-                         `(sp-pair-overlay-face ((t (:background ,darkest-gray))))
-                         `(sp-show-pair-match-face ((t (:background ,darkest-gray :foreground ,blue))))))
+                         `(web-mode-html-tag-face ((t (:foreground ,purple))))
+                         `(web-mode-html-tag-custom-face ((t (:foreground ,blue))))
+                         `(web-mode-html-tag-bracket-face ((t (:foreground ,darker-gray))))
+                         `(web-mode-html-attr-equal-face ((t (:foreground ,darker-gray))))
+                         `(web-mode-html-attr-custom-face ((t (:foreground ,blue))))
+                         `(web-mode-variable-name-face ((t (:foreground nil))))
+                         `(web-mode-html-attr-name-face ((t (:foreground ,blue))))))
 
 
 ;;; general
@@ -138,6 +142,7 @@
  (custom-theme-set-faces 'ample
                          `(trailing-whitespace ((t (:background ,darker-gray))))
                          `(anzu-mode-line ((t (:foreground ,orange))))
+                         `(sm-pair-overlay-face ((t (:background "grey13"))))
                          `(column-enforce-face ((t (:underline ,darker-gray))))))
 
 

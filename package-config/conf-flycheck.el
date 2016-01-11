@@ -8,6 +8,7 @@
 (add-hook 'ruby-mode-hook 'flycheck-mode)
 (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
 (setq flycheck-indication-mode nil)
+
 (eval-after-load "flycheck"
   '(add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode))
 
