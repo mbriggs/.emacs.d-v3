@@ -12,7 +12,7 @@
 (bind-key "M-R" 'toggle-window-split)
 (bind-key "M-f" 'split-window-right-and-move-there)
 (bind-key "M-F" 'split-window-below-and-move-there)
-(bind-key "M-m" 'ido-imenu)
+(bind-key "M-m" 'imenu)
 (bind-key "M-w" 'quit-window)
 (bind-key "M-W" 'only-current-buffer)
 (bind-key "M-q" 'save-buffers-kill-emacs)

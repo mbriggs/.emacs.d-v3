@@ -2,6 +2,7 @@
 (enable-theme 'ample)
 
 
+(global-diff-hl-mode +1)
 (add-hook 'prog-mode-hook 'highlight-numbers-mode)
 
 ;; only turn off menus if not osx

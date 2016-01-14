@@ -1,6 +1,8 @@
 (add-hook 'after-init-hook 'global-company-mode)
 (add-hook 'after-init-hook 'company-statistics-mode)
 
+
+
 (defun check-expansion ()
   (save-excursion
     (if (looking-at "\\_>") t
@@ -16,8 +18,6 @@
 (defun tab-indent-or-complete ()
   (interactive)
   (cond
-   ((string= mode-name "Magit")
-    (magit-section-toggle (magit-current-section)))
    ((minibufferp)
     (minibuffer-complete))
    (t
@@ -38,13 +38,11 @@
           (null (do-yas-expand)))
       (if company-candidates
           (company-complete-selection)
-        (if (check-expansion)
-            (progn
-              (company-manual-begin)
-              (if (null company-candidates)
-                  (progn
-                    (company-abort)
-                    (yas-next-field))))
+        (when (check-expansion)
+          (company-manual-begin)
+          (when (null company-candidates)
+            (company-abort)
+            (yas-next-field))
           (yas-next-field)))))
 
 (defun expand-snippet-or-complete-selection ()
@@ -60,25 +58,23 @@
       (yas-abort-snippet)
     (company-abort)))
 
-(eval-after-load "company"
-  '(progn
-     (global-set-key [tab] 'tab-indent-or-complete)
-     (global-set-key (kbd "TAB") 'tab-indent-or-complete)
-     (global-set-key [(control return)] 'company-complete-common)
+(global-set-key [tab] 'tab-indent-or-complete)
+(global-set-key (kbd "TAB") 'tab-indent-or-complete)
+(global-set-key [(control return)] 'company-complete-common)
 
+(eval-after-load "company-mode"
+  '(lambda ()
      (define-key company-active-map [tab] 'expand-snippet-or-complete-selection)
-     (define-key company-active-map [escape] 'company-abort)
      (define-key company-active-map (kbd "TAB") 'expand-snippet-or-complete-selection)))
 
 (eval-after-load "yasnippet"
-  '(progn
+  '(lambda ()
      (define-key yas-minor-mode-map [tab] nil)
      (define-key yas-minor-mode-map (kbd "TAB") nil)
 
      (define-key yas-keymap [tab] 'tab-complete-or-next-field)
      (define-key yas-keymap (kbd "TAB") 'tab-complete-or-next-field)
-     (define-key yas-keymap [(alt n)] 'yas-next-field)
-     (define-key yas-keymap [(alt p)] 'yas-prev-field)
+     (define-key yas-keymap [(control tab)] 'yas-next-field)
      (define-key yas-keymap (kbd "C-g") 'abort-company-or-yas)))
 
 (provide 'conf-company)

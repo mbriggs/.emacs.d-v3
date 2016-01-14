@@ -12,6 +12,13 @@
   (split-window-below)
   (windmove-down))
 
+(defun disable-final-newline ()
+    (interactive)
+    (set (make-local-variable 'require-final-newline) nil))
+
+(defun enable-final-newline ()
+    (interactive)
+    (set (make-local-variable 'require-final-newline) t))
 
 (defun fancy-new-line-p ()
   (let ((blacklist '(term-mode)))

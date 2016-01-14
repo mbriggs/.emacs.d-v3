@@ -10,6 +10,8 @@
 (setq flycheck-indication-mode nil)
 
 (eval-after-load "flycheck"
-  '(add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode))
+  '(progn
+     (add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode)
+     (flycheck-add-mode 'javascript-eslint 'babel-mode)))
 
 (provide 'conf-flycheck)

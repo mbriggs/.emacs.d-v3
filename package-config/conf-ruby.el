@@ -49,6 +49,8 @@
        ",t," 'projectile-toggle-between-implementation-and-test
        ",tf" 'rspec-verify
        ",ta" 'rspec-verify-all
+       ",tt" 'rspec-verify-single
+       ",tl" 'rspec-rerun
        ",rv" 'ruby-refactor-extract-local-variable
        ",ra" 'ruby-refactor-add-parameter
        ",rl" 'ruby-refactor-extract-to-let)))
