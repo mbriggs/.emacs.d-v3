@@ -1,0 +1,5 @@
+class ${1:name} extends Component {
+  render() {
+    $0
+  }
+}

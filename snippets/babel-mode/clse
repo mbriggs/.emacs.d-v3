@@ -1,0 +1,3 @@
+class ${1:name} extends ${2:parent} {
+  $0
+}

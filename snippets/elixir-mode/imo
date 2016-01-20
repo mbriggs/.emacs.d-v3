@@ -1,0 +1,1 @@
+import ${1:module}, only: [ ${2:methods} ]$0

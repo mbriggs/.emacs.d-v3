@@ -1,0 +1,3 @@
+defmodule ${1:module} do
+  $0
+end
