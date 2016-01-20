@@ -20,6 +20,8 @@
   (cond
    ((minibufferp)
     (minibuffer-complete))
+   ((string= mode-name "Magit")
+    (magit-section-toggle (magit-current-section)))
    (t
     (indent-for-tab-command)
     (if (or (not yas/minor-mode)
