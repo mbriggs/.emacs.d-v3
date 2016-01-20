@@ -3,6 +3,7 @@
 
 (require 'evil)
 (push 'git-commit-mode evil-emacs-state-modes)
+(push 'text-mode evil-emacs-state-modes)
 
 (global-diff-hl-mode +1)
 
