@@ -19,7 +19,9 @@
   require-final-newline t
   indicate-empty-lines nil
   recentf-max-saved-items 80
+  dabbrev-case-replace nil
   recentf-exclude '("/tmp/" "/ssh:"))
+
 
 (setq-default
   indent-tabs-mode nil

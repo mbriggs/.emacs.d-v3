@@ -64,6 +64,7 @@
 
 (eval-after-load "company-mode"
   '(lambda ()
+     (setq company-dabbrev-downcase nil)
      (define-key company-active-map [tab] 'expand-snippet-or-complete-selection)
      (define-key company-active-map (kbd "TAB") 'expand-snippet-or-complete-selection)))
 

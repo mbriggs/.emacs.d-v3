@@ -2,7 +2,6 @@
 
 (evil-ex-define-cmd "iex" 'alchemist-iex-project-run)
 (evil-ex-define-cmd "mix" 'alchemist-mix)
-(evil-ex-define-cmd "mixr" 'alchemist-mix-run)
 (evil-define-key 'normal alchemist-mode-map
   ",ta" 'alchemist-mix-test
   ",tt" 'alchemist-mix-test-at-point

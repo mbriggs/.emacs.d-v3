@@ -40,6 +40,7 @@
                  conf-company
                  conf-erc
                  conf-snippets
+                 conf-git
                  conf-parens
                  conf-flycheck
                  conf-volatile
