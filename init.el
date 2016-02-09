@@ -26,15 +26,21 @@
 (setq mac-option-modifier 'alt)
 
 (when (memq window-system '(mac ns))
+  (setq exec-path-from-shell-check-startup-files nil)
+
   (require 'exec-path-from-shell)
   (exec-path-from-shell-initialize))
+
+(let ((secret-path (expand-file-name "~/Dropbox/secrets.el")))
+  (when (file-exists-p secret-path)
+    (load-file secret-path)))
 
 (mapc 'require '(settings
                  appearance
                  global-modes
                  defuns
-                 keybinds
                  modeline
+                 keybinds
 
                  conf-evil
                  conf-company
@@ -47,15 +53,13 @@
                  conf-ido
                  conf-neotree
                  conf-markdown
+                 conf-butler
                  conf-sass
                  conf-ruby
                  conf-elixir
+                 conf-shell
                  conf-web
                  conf-js))
-
-(let ((secret-path (expand-file-name "~/Dropbox/secrets.el")))
-  (when (file-exists-p secret-path)
-    (load-file secret-path)))
 
 (require 'server)
 (unless (server-running-p)

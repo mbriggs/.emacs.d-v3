@@ -13,6 +13,7 @@
 (bind-key "M-f" 'split-window-right-and-move-there)
 (bind-key "M-F" 'split-window-below-and-move-there)
 (bind-key "M-m" 'imenu)
+(bind-key "M-l" 'goto-line)
 (bind-key "M-w" 'quit-window)
 (bind-key "M-W" 'only-current-buffer)
 (bind-key "M-q" 'save-buffers-kill-emacs)
@@ -28,7 +29,9 @@
 (bind-key "M-j" 'evil-window-next)
 (bind-key "C-SPC" 'comment-or-uncomment-region-or-line)
 (bind-key "M-o" 'projectile-find-file)
-(bind-key "C-p" 'switch-to-local-project)
+(bind-key "C-S-p" 'switch-to-local-project)
+(bind-key "C-p" 'evil-scroll-line-up)
+(bind-key "C-n" 'evil-scroll-line-down)
 (bind-key "M-`" 'other-frame)
 (bind-key "M-<up>" 'er/expand-region)
 (bind-key "M-<down>" 'er/contract-region)
@@ -84,7 +87,7 @@
   (kbd "M-J") 'evil-join
   (kbd "M-v") 'yank
   (kbd "M-S-<return>") 'evil-open-above
-  (kbd "M-<return>") 'evil-open-below)
+  (kbd "S-<return>") 'evil-open-below)
 
 ;;; ex-mode
 
@@ -96,8 +99,9 @@
 (mapc 'ex-mode-mapping
       '(("!"                        . shell-command)
         ("log"                      . magit-log)
-        ("buffers"                . ibuffer)
-        ("[br]anch"               . magit-branch-manager)
+        ("butler"                   . butler)
+        ("buffers"                  . ibuffer)
+        ("[br]anch"                 . magit-branch-manager)
         ("deft"                     . deft)
         ("reset-directory"          . reset-current-dir)
         ("log"                      . magit-file-log)
@@ -114,7 +118,8 @@
         ("gist"                     . yagist-region-or-buffer)
         ("gistp"                    . yagist-region-or-buffer-private)
         ("erc"                      . start-erc)
-        ("sh"                       . eshell)
+        ("sh"                       . shell)
+        ("esh"                      . eshell)
         ("mx"                       . smex)
         ("mysql"                    . sql-mysql)
         ("gh"                       . open-github-from-here)

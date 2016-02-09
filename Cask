@@ -9,8 +9,8 @@
 (depends-on "bind-key")
 (depends-on "free-keys")
 (depends-on "projectile")
-(depends-on "ace-jump-mode")
 (depends-on "yasnippet")
+(depends-on "avy")
 (depends-on "smex")
 (depends-on "git-timemachine")
 (depends-on "ample-theme")
@@ -42,11 +42,14 @@
 (depends-on "evil-surround")
 (depends-on "evil-indent-textobject")
 (depends-on "rainbow-mode")
+(depends-on "emojify")
 
 ;;; tools
 (depends-on "ag")
 (depends-on "magit")
 (depends-on "prodigy")
+(depends-on "butler")
+(depends-on "slack")
 (depends-on "httprepl")
 (depends-on "swoop")
 (depends-on "yagist")
@@ -83,6 +86,7 @@
 (depends-on "flycheck")
 (depends-on "flycheck-color-mode-line")
 (depends-on "flycheck-cask")
+(depends-on "flycheck-elixir-dogma" :git "http://github.com/obmarg/flycheck-elixir-dogma.git")
 (depends-on "rubocop")
 
 ;;; libs
@@ -111,3 +115,9 @@
 (depends-on "js2-refactor")
 (depends-on "js-doc")
 (depends-on "company-tern")
+(depends-on "deferred")
+(depends-on "request")
+(depends-on "websocket")
+(depends-on "oauth2")
+(depends-on "circe")
+(depends-on "alert")
