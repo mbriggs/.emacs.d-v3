@@ -22,6 +22,8 @@
     (minibuffer-complete))
    ((string= mode-name "Magit")
     (magit-section-toggle (magit-current-section)))
+   ((string= mode-name "Shell")
+    (company-manual-begin))
    (t
     (indent-for-tab-command)
     (if (or (not yas/minor-mode)

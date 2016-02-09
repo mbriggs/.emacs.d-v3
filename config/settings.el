@@ -16,6 +16,7 @@
   initial-scratch-message nil
   uniquify-buffer-name-style 'post-forward
   uniquify-separator ":"
+  super-save-auto-save-when-idle t
   require-final-newline t
   indicate-empty-lines nil
   recentf-max-saved-items 80
@@ -28,6 +29,7 @@
   indicate-buffer-boundaries nil
   tab-width 2)
 
+(super-save-mode +1)
 (global-auto-revert-mode 1)
 (fset 'yes-or-no-p 'y-or-n-p)
 (delete-selection-mode t)

@@ -1,4 +1,5 @@
 (defvar my-shells '("*main-shell*" "*alt-shell*" "*remote-shell*"))
+(require 'shell)
 
 (setenv "PAGER" "cat")
 (setenv "npm_config_progress" "false")
@@ -29,24 +30,6 @@
   "Add to shell-mode-hook to prevent jump-scrolling on newlines in shell buffers."
   (set (make-local-variable 'scroll-conservatively) 10))
 (add-hook 'shell-mode-hook 'set-scroll-conservatively)
-
-;; i think this is wrong, and it buries the shell when you run emacsclient from
-;; it. temporarily removing.
-;; (defun unset-display-buffer-reuse-frames ()
-;;   "Add to shell-mode-hook to prevent switching away from the shell buffer
-;; when emacsclient opens a new buffer."
-;;   (set (make-local-variable 'display-buffer-reuse-frames) t))
-;; (add-hook 'shell-mode-hook 'unset-display-buffer-reuse-frames)
-
-
-(defun make-comint-directory-tracking-work-remotely ()
-  "Add this to comint-mode-hook to make directory tracking work
-while sshed into a remote host, e.g. for remote shell buffers
-started in tramp. (This is a bug fix backported from Emacs 24:
-http://comments.gmane.org/gmane.emacs.bugs/39082"
-  (set (make-local-variable 'comint-file-name-prefix)
-       (or (file-remote-p default-directory) "")))
-(add-hook 'comint-mode-hook 'make-comint-directory-tracking-work-remotely)
 
 (defun enter-again-if-enter ()
   "Make the return key select the current item in minibuf and shell history isearch.
@@ -80,7 +63,8 @@ the line, to capture multiline input. (This only has effect if
 
  (setq comint-get-old-input (lambda () "")) ; what to run when i press enter on a
                                             ; line above the current prompt
-
+(add-hook 'shell-mode-hook #'company-mode)
+(define-key shell-mode-map (kbd "TAB") #'company-manual-begin)
 
 ;; for other code, e.g. emacsclient in TRAMP ssh shells and automatically
 ;; closing completions buffers, see the links above.

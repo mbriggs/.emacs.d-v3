@@ -10,6 +10,7 @@
 (depends-on "free-keys")
 (depends-on "projectile")
 (depends-on "yasnippet")
+(depends-on "super-save")
 (depends-on "avy")
 (depends-on "smex")
 (depends-on "git-timemachine")
