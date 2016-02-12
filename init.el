@@ -58,6 +58,7 @@
                  conf-ruby
                  conf-elixir
                  conf-shell
+                 conf-prodigy
                  conf-web
                  conf-js))
 

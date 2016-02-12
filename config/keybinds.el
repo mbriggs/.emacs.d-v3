@@ -10,6 +10,7 @@
 (bind-key "M-s" 'save-buffer)
 (bind-key "M-r" 'rotate-windows)
 (bind-key "M-R" 'toggle-window-split)
+(bind-key "M-i" 'imenu-anywhere)
 (bind-key "M-f" 'split-window-right-and-move-there)
 (bind-key "M-F" 'split-window-below-and-move-there)
 (bind-key "M-m" 'imenu)
@@ -21,6 +22,7 @@
 (bind-key "<f8>" 'magit-blame)
 (bind-key "M-." 'etags-select-find-tag)
 (bind-key "<f3>" 'flycheck-list-errors)
+(bind-key "<f5>" 'refresh-stuff)
 (bind-key "C-f" 'dired)
 (bind-key "M-v" 'evil-paste-after)
 (bind-key "M-n" 'next-error)
@@ -35,7 +37,6 @@
 (bind-key "M-`" 'other-frame)
 (bind-key "M-<up>" 'er/expand-region)
 (bind-key "M-<down>" 'er/contract-region)
-(bind-key "M-'" 'toggle-quotes)
 
 ;;; normal
 

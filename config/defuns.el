@@ -398,4 +398,12 @@ region-end is used."
 (defun scroll-to-bottom ()
   (goto-char (point-max)))
 
+(defun refresh-stuff ()
+  (interactive)
+  (projectile-regenerate-tags)
+  (projectile-invalidate-cache)
+  (when (-contains-p minor-mode-alist 'anzu-mode)
+    (ignore-errors
+      (robe-request "rails_refresh"))))
+
 (provide 'defuns)
