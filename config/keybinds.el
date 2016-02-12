@@ -17,8 +17,8 @@
  ("M-c" . mb/copy-line-or-region)
  ("M-v" . yank)
  ("M-r" . anzu-query-replace-regexp)
- ("M-f" . isearch-forward-regexp)
- ("M-F" . isearch-backward-regexp)
+ ("M-f" . isearch-forward)
+ ("M-F" . isearch-backward)
  ("M-x" . mb/cut-line-or-region)
  ("M-z" . undo-only)
  ("M-Z" . undo)
@@ -27,10 +27,12 @@
  ("M-J" . mb/join-line)
  ("C-p" . scroll-down-line)
  ("C-n" . scroll-up-line)
+ ("C-f" . dired)
  ("M-j" . other-window)
- ("M-w" . split-window-right-and-move-there)
- ("M-W" . split-window-below-and-move-there)
- ("A-w" . delete-window)
+ ("A-w" . split-window-right-and-move-there)
+ ("A-W" . split-window-below-and-move-there)
+ ("M-p" . projectile-switch-project)
+ ("M-w" . delete-window)
  ("M--" . delete-other-windows)
  ("M-e" . ido-switch-buffer)
  ("M-E" . ido-switch-buffer-other-window)
@@ -42,6 +44,8 @@
  ("M-O" . ido-find-file)
 
  ("<f1>" . magit-status)
+ ("<f3>" . flycheck-list-errors)
+ ("<f5>" . projectile-regenerate-tags)
  ("<f8>" . magit-blame))
 
 (bind-keys
@@ -49,6 +53,7 @@
 
 (bind-keys :map isearch-mode-map
            ("M-f" . isearch-repeat-forward)
+           ("M-." . etags-select-find-tag)
            ("M-F" . isearch-repeat-backward))
 
 ;;; esc ALWAYS quits
