@@ -2,21 +2,13 @@
 (show-smartparens-global-mode +1)
 (smartparens-global-mode +1)
 
-(define-key sp-keymap (kbd "M-k") 'sp-kill-sexp)
-(define-key sp-keymap (kbd "M-K") 'sp-backward-kill-sexp)
-(define-key sp-keymap (kbd "A-L") 'sp-backward-barf-sexp)
-(define-key sp-keymap (kbd "A-H") 'sp-backward-slurp-sexp)
-(define-key sp-keymap (kbd "A-h") 'sp-forward-barf-sexp)
-(define-key sp-keymap (kbd "A-l") 'sp-forward-slurp-sexp)
-(define-key sp-keymap (kbd "C-<right>") 'sp-beginning-of-next-sexp)
-(define-key sp-keymap (kbd "C-<left>") 'sp-end-of-previous-sexp)
-(define-key sp-keymap (kbd "S-<left>") 'sp-beginning-of-sexp)
-(define-key sp-keymap (kbd "S-<right>") 'sp-end-of-sexp)
-(evil-define-key 'normal sp-keymap
-  (kbd "(") 'wrap-round
-  (kbd "\"") 'wrap-quote
-  (kbd "[") 'wrap-square
-  (kbd "K") 'sp-splice-sexp)
+(bind-keys :map sp-keymap
+           ("M-k" . sp-kill-sexp)
+           ("M-K"  . sp-splice-sexp)
+           ("A-L" . sp-backward-barf-sexp)
+           ("A-H" . sp-backward-slurp-sexp)
+           ("A-h" . sp-forward-barf-sexp)
+           ("A-l" . sp-forward-slurp-sexp))
 
 (defun wrap-round ()
   (interactive)

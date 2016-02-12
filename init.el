@@ -42,7 +42,6 @@
                  modeline
                  keybinds
 
-                 conf-evil
                  conf-company
                  conf-erc
                  conf-snippets
