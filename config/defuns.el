@@ -146,9 +146,7 @@ region-end is used."
          (region (buffer-substring start end)))
     (goto-char end)
     (dotimes (i num)
-      (insert region)))
-  (evil-normal-state)
-  (evil-visual-restore))
+      (insert region))))
 
 (defun duplicate-current-line (&optional num)
   "Duplicate the current line NUM times."

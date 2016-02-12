@@ -1,4 +1,5 @@
 (require 'bind-key)
+(require 'dash)
 
 (bind-keys*
  ("M-<left>" . mb/start-of-line)
@@ -17,9 +18,11 @@
  ("M-c" . mb/copy-line-or-region)
  ("M-v" . yank)
  ("M-r" . anzu-query-replace-regexp)
+ ("M-r" . anzu-query-replace-regexp)
  ("M-f" . isearch-forward)
  ("M-F" . isearch-backward)
  ("M-x" . mb/cut-line-or-region)
+ ("M-i" . mb/toolbox)
  ("M-z" . undo-only)
  ("M-Z" . undo)
  ("M-A" . smex)
@@ -31,7 +34,7 @@
  ("M-j" . other-window)
  ("A-w" . split-window-right-and-move-there)
  ("A-W" . split-window-below-and-move-there)
- ("M-p" . projectile-switch-project)
+ ("M-P" . projectile-switch-project)
  ("M-w" . delete-window)
  ("M--" . delete-other-windows)
  ("M-e" . ido-switch-buffer)
@@ -48,9 +51,6 @@
  ("<f5>" . projectile-regenerate-tags)
  ("<f8>" . magit-blame))
 
-(bind-keys
- ("M-t" . (apply-partially 'mb/placeholder "no tests defined yet")))
-
 (bind-keys :map isearch-mode-map
            ("M-f" . isearch-repeat-forward)
            ("M-." . etags-select-find-tag)
@@ -65,7 +65,45 @@
 (define-key minibuffer-local-isearch-map [escape] 'minibuffer-keyboard-quit)
 
 
-;; tools
+;; toolbox
+
+(defvar *mb/tools* '(("log" . magit-file-log)
+                     ("butler" . butler)
+                     ("buffers" . ibuffer)
+                     ("branch" . magit-checkout)
+                     ("clean" . clean-up-buffer-or-region)
+                     ("align" . align-regexp)
+                     ("ack" . ack)
+                     ("ag" . ag-project)
+                     ("agl" . ag)
+                     ("agf" . ag-project-files)
+                     ("gist-list" . yagist-list)
+                     ("gist" . yagist-region-or-buffer)
+                     ("gistp" . yagist-region-or-buffer-private)
+                     ("erc" . start-erc)
+                     ("sh" . shell)
+                     ("esh" . eshell)
+                     ("mx" . smex)
+                     ("sql" . sql-postgres)
+                     ("gh" . open-github-from-here)
+                     ("p" . prodigy)
+                     ("mongo" . inf-mongo)
+                     ("sql" . sql-postgres)
+                     ("delete" . delete-this-buffer-and-file)
+                     ("rename" . rename-this-file-and-buffer)
+                     ("occur" . occur)
+                     ("rubo" . rubocop-autocorrect-current-file)
+                     ("emacs" . dired-to-emacs-dir)))
+
+(defun mb/toolbox ()
+  (interactive)
+  (let ((choice (ido-completing-read "Tool: " (-map 'car *mb/tools*))))
+    (--> choice
+         (assoc-string it *mb/tools*)
+         (cdr it)
+         (funcall it))))
+
+;; utils
 
 (defun mb/line-beginning-text-position ()
   (save-excursion
@@ -129,7 +167,10 @@
 (defun mb/delete-whole-line ()
   (interactive)
   (delete-region (line-beginning-position)
-                 (line-end-position)))
+                 (line-end-position))
+  (delete-char -1)
+  (forward-line 1)
+  (beginning-of-line))
 
 (defun mb/copy-line-or-region ()
   (interactive)
