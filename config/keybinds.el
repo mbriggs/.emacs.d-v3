@@ -1,13 +1,12 @@
-(require 'bind-key)
+(use-package dash :ensure t)
+(use-package bind-key :ensure t)
 (require 'dash)
 
 (bind-keys*
  ("M-<left>" . mb/start-of-line)
  ("M-<right>" . mb/end-of-line)
- ("M-<up>" . er/expand-region)
- ("M-<down>" . er/contract-region)
- ("A-<left>" . backward-word)
- ("A-<right>" . forward-word)
+ ("A-<left>" . mb/backwards-word)
+ ("A-<right>" . mb/forward-word)
  ("A-<backspace>" . mb/backward-delete-word)
  ("A-S-<backspace>" . mb/delete-word)
  ("M-<backspace>" . mb/delete-whole-line)
@@ -17,16 +16,15 @@
  ("M-d" . mb/duplicate-line-or-region)
  ("M-c" . mb/copy-line-or-region)
  ("M-v" . yank)
- ("M-r" . anzu-query-replace-regexp)
  ("M-f" . isearch-forward)
  ("M-F" . isearch-backward)
  ("M-x" . mb/cut-line-or-region)
  ("M-i" . mb/toolbox)
  ("M-z" . undo-only)
  ("M-Z" . undo)
- ("M-A" . smex)
  ("M-a" . mark-whole-buffer)
  ("M-J" . mb/join-line)
+ ("A-J" . mb/fuse-line)
  ("C-p" . scroll-down-line)
  ("C-n" . scroll-up-line)
  ("C-f" . dired)
@@ -45,14 +43,11 @@
  ("M-o" . projectile-find-file)
  ("M-O" . ido-find-file)
 
- ("<f1>" . magit-status)
  ("<f3>" . flycheck-list-errors)
- ("<f5>" . projectile-regenerate-tags)
- ("<f8>" . magit-blame))
+ ("<f5>" . projectile-regenerate-tags))
 
 (bind-keys :map isearch-mode-map
            ("M-f" . isearch-repeat-forward)
-           ("M-." . etags-select-find-tag)
            ("M-F" . isearch-repeat-backward))
 
 ;;; esc ALWAYS quits
@@ -62,37 +57,34 @@
 (define-key minibuffer-local-completion-map [escape] 'minibuffer-keyboard-quit)
 (define-key minibuffer-local-must-match-map [escape] 'minibuffer-keyboard-quit)
 (define-key minibuffer-local-isearch-map [escape] 'minibuffer-keyboard-quit)
-
+(global-set-key [escape] 'keyboard-escape-quit)
 
 ;; toolbox
 
-(defvar *mb/tools* '(("log" . magit-file-log)
-                     ("butler" . butler)
+(defvar *mb/tools* '(("log" . magit-log-buffer-file)
+                     ("butler" . butler-status)
                      ("buffers" . ibuffer)
                      ("branch" . magit-checkout)
                      ("clean" . clean-up-buffer-or-region)
                      ("align" . align-regexp)
-                     ("ack" . ack)
-                     ("ag" . ag-project)
-                     ("agl" . ag)
-                     ("agf" . ag-project-files)
+                     ("ag - project" . ag-project)
+                     ("ag - location" . ag)
+                     ("ag - file type" . ag-project-files)
                      ("gist-list" . yagist-list)
                      ("gist" . yagist-region-or-buffer)
-                     ("gistp" . yagist-region-or-buffer-private)
+                     ("gist - private" . yagist-region-or-buffer-private)
                      ("erc" . start-erc)
-                     ("sh" . shell)
-                     ("esh" . eshell)
-                     ("mx" . smex)
-                     ("sql" . sql-postgres)
-                     ("gh" . open-github-from-here)
-                     ("p" . prodigy)
+                     ("shell" . shell)
+                     ("eshell" . eshell)
+                     ("sql - postgres" . sql-postgres)
+                     ("open on github" . open-github-from-here)
+                     ("prodigy" . prodigy)
                      ("mongo" . inf-mongo)
-                     ("sql" . sql-postgres)
-                     ("delete" . delete-this-buffer-and-file)
-                     ("rename" . rename-this-file-and-buffer)
+                     ("delete this file and buffer" . delete-this-buffer-and-file)
+                     ("rename this file and buffer" . rename-this-file-and-buffer)
                      ("occur" . occur)
-                     ("rubo" . rubocop-autocorrect-current-file)
-                     ("emacs" . dired-to-emacs-dir)))
+                     ("rubocop" . rubocop-autocorrect-current-file)
+                     ("emacs dir" . dired-to-emacs-dir)))
 
 (defun mb/toolbox ()
   (interactive)
@@ -116,20 +108,42 @@
     (forward-word)
     (point)))
 
+(defun mb/start-of-next-word ()
+  (save-excursion
+    (forward-word)
+    (forward-word -1)
+    (point)))
+
 (defun mb/placeholder (msg)
   (message msg))
 
 ;; commands
 
+(defun mb/backwards-word ()
+  (interactive)
+  (let ((end-of-previous-word (mb/end-of-previous-word)))
+    (if (eq (point) end-of-previous-word)
+        (forward-word -1)
+      (goto-char end-of-previous-word))))
+
+(defun mb/forward-word ()
+  (interactive)
+  (let ((start-of-next-word (mb/start-of-next-word)))
+    (if (eq (point) start-of-next-word)
+        (forward-word)
+      (goto-char start-of-next-word))))
+
 (defun mb/duplicate-line-or-region ()
   (interactive)
   (save-excursion
     (if (region-active-p)
-        (let ((deactivate-mark)
+        (let ((deactivate-mark) ; keep the region around after dupe
               (start (region-beginning))
               (end (region-end)))
           (goto-char end)
           (insert (buffer-substring start end)))
+
+      ; no region, dupe line
       (let ((line (buffer-substring (point-at-bol)
                                     (point-at-eol))))
         (end-of-line)
@@ -146,16 +160,21 @@
     (delete-char -1)
     (just-one-space)))
 
+(defun mb/fuse-line ()
+  "join the current and next lines, with no space in between them"
+  (interactive)
+  (save-excursion
+    (forward-line 1)
+    (beginning-of-line)
+    (delete-char -1)
+    (delete-horizontal-space)))
+
 (defun mb/backward-delete-word ()
   "delete by word"
   (interactive)
-  (let ((start (point))
-        (end-of-previous-word (mb/end-of-previous-word)))
-    (if (eq start end-of-previous-word)
-        (progn
-          (forward-word -1)
-          (delete-region start (point)))
-      (delete-region end-of-previous-word start))))
+  (let ((start (point)))
+    (mb/backwards-word)
+    (delete-region start (point))))
 
 (defun mb/delete-word ()
   (interactive)
@@ -190,8 +209,14 @@
   (interactive)
   (delete-region (line-beginning-position)
                  (line-end-position))
-  (delete-char -1)
-  (forward-line 1)
+
+  (if (eq (point) (point-min))
+      (progn
+        (forward-line 1)
+        (delete-char -1))
+    (progn
+      (delete-char -1)
+      (forward-line 1)))
   (beginning-of-line))
 
 (defun mb/copy-line-or-region ()

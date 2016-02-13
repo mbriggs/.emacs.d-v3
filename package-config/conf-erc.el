@@ -39,4 +39,4 @@
   (erc-services-mode 1)
   (erc))
 
-  (provide 'conf-erc)
+(provide 'conf-erc)

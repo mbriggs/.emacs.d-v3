@@ -1,17 +1,3 @@
-(source gnu)
-(source melpa)
-
-;;; environment
-(depends-on "cask")
-(depends-on "exec-path-from-shell")
-
-;;; utility
-(depends-on "bind-key")
-(depends-on "free-keys")
-(depends-on "projectile")
-(depends-on "yasnippet")
-(depends-on "super-save")
-(depends-on "imenu-anywhere")
 (depends-on "avy")
 (depends-on "smex")
 (depends-on "git-timemachine")

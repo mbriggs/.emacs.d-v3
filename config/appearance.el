@@ -1,8 +1,13 @@
-(load-theme 'ample t t)
-(enable-theme 'ample)
+(use-package ample-theme
+             :ensure t
+             :init
+             (load-theme 'ample t t)
+             (enable-theme 'ample))
 
-
-(add-hook 'prog-mode-hook 'highlight-numbers-mode)
+(use-package highlight-numbers
+             :ensure t
+             :init
+             (add-hook 'prog-mode-hook 'highlight-numbers-mode))
 
 ;; only turn off menus if not osx
 (if (not (eq system-type 'darwin))
@@ -46,8 +51,10 @@
                               line)
                       'face 'linum)))
 
-(require 'highlight-cl)
-(add-hook 'emacs-lisp-mode-hook 'highlight-cl-add-font-lock-keywords)
+(use-package highlight-cl
+             :ensure t
+             :init
+             (add-hook 'emacs-lisp-mode-hook 'highlight-cl-add-font-lock-keywords))
 
 (defmacro with-theme-colors (&rest body)
   `(let ((green "#6aaf50")

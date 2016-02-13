@@ -1,6 +1,5 @@
-(require 'dash)
-(require 's)
-(eval-after-load "dash" '(dash-enable-font-lock))
+(use-package dash :ensure t :defer nil :init (dash-enable-font-lock))
+(use-package s :ensure t :defer nil)
 
 (defun split-window-right-and-move-there ()
   (interactive)

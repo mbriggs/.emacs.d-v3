@@ -29,7 +29,6 @@
   indicate-buffer-boundaries nil
   tab-width 2)
 
-(super-save-mode +1)
 (global-auto-revert-mode 1)
 (fset 'yes-or-no-p 'y-or-n-p)
 (delete-selection-mode t)
