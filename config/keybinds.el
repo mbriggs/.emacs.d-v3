@@ -14,10 +14,9 @@
  ("<escape>" . keyboard-escape-quit)
  ("M-<return>" . mb/open-line)
  ("M-S-<return>" . mb/open-line-above)
- ("M-d" . duplicate-current-line)
+ ("M-d" . mb/duplicate-line-or-region)
  ("M-c" . mb/copy-line-or-region)
  ("M-v" . yank)
- ("M-r" . anzu-query-replace-regexp)
  ("M-r" . anzu-query-replace-regexp)
  ("M-f" . isearch-forward)
  ("M-F" . isearch-backward)
@@ -111,23 +110,52 @@
     (skip-chars-forward " \t")
     (point)))
 
+(defun mb/end-of-previous-word ()
+  (save-excursion
+    (forward-word -1)
+    (forward-word)
+    (point)))
+
 (defun mb/placeholder (msg)
   (message msg))
 
 ;; commands
 
+(defun mb/duplicate-line-or-region ()
+  (interactive)
+  (save-excursion
+    (if (region-active-p)
+        (let ((deactivate-mark)
+              (start (region-beginning))
+              (end (region-end)))
+          (goto-char end)
+          (insert (buffer-substring start end)))
+      (let ((line (buffer-substring (point-at-bol)
+                                    (point-at-eol))))
+        (end-of-line)
+        (newline)
+        (insert line)))))
+
+
 (defun mb/join-line ()
+  "join the current and next lines, with one space in between them"
   (interactive)
   (save-excursion
     (forward-line 1)
     (beginning-of-line)
-    (delete-char -1)))
+    (delete-char -1)
+    (just-one-space)))
 
 (defun mb/backward-delete-word ()
+  "delete by word"
   (interactive)
-  (let ((start (point)))
-    (forward-word -1)
-    (delete-region start (point))))
+  (let ((start (point))
+        (end-of-previous-word (mb/end-of-previous-word)))
+    (if (eq start end-of-previous-word)
+        (progn
+          (forward-word -1)
+          (delete-region start (point)))
+      (delete-region end-of-previous-word start))))
 
 (defun mb/delete-word ()
   (interactive)
@@ -145,12 +173,6 @@
   (if (eq (mb/line-beginning-text-position) (point))
       (beginning-of-line)
     (beginning-of-line-text)))
-
-(defun mb/duplicate-line-or-region ()
-  (interactive)
-  (if (region-active-p)
-      (duplicate-region)
-    (duplicate-current-line)))
 
 (defun mb/open-line ()
   (interactive)

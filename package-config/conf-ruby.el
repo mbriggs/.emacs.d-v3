@@ -34,11 +34,10 @@
      (setq rspec-spec-command "rspec")
      (setq rspec-use-spring-when-possible t)
      (define-key ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent)
-     (define-key ruby-mode-map (kbd "SPC") 'ruby-method-space-replace)
-
-
-
-     (bind-key "M-T" 'rspec-verify-single ruby-mode-map)
-     (bind-key "M-t" 'rspec-rerun ruby-mode-map)))
+     (bind-keys :map ruby-mode-map
+                ("M-t t" . rspec-verify-single)
+                ("M-t l" . rspec-rerun)
+                ("M-t f" . rspec-verify)
+                ("M-t a" . rspec-verify-all))))
 
 (provide 'conf-ruby)
