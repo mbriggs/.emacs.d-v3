@@ -1,6 +1,8 @@
 (require 'conf-company)
 
 (use-package inf-ruby :ensure t)
+(use-package bundler :ensure t)
+(use-package rubocop :ensure t)
 
 (use-package ruby-mode
              :mode "\\.\\(rb\\|rabl\\|Rakefile\\|Gemfile\\)$"

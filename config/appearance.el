@@ -1,13 +1,13 @@
 (use-package ample-theme
-             :ensure t
-             :init
-             (load-theme 'ample t t)
-             (enable-theme 'ample))
+  :ensure t
+  :init
+  (load-theme 'ample t t)
+  (enable-theme 'ample))
 
 (use-package highlight-numbers
-             :ensure t
-             :init
-             (add-hook 'prog-mode-hook 'highlight-numbers-mode))
+  :ensure t
+  :init
+  (add-hook 'prog-mode-hook 'highlight-numbers-mode))
 
 ;; only turn off menus if not osx
 (if (not (eq system-type 'darwin))

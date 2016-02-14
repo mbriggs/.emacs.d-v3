@@ -57,7 +57,7 @@
 (define-key minibuffer-local-completion-map [escape] 'minibuffer-keyboard-quit)
 (define-key minibuffer-local-must-match-map [escape] 'minibuffer-keyboard-quit)
 (define-key minibuffer-local-isearch-map [escape] 'minibuffer-keyboard-quit)
-(global-set-key [escape] 'keyboard-escape-quit)
+(global-set-key [escape] 'keyboard-quit)
 
 ;; toolbox
 
@@ -74,6 +74,7 @@
                      ("gist" . yagist-region-or-buffer)
                      ("gist - private" . yagist-region-or-buffer-private)
                      ("erc" . start-erc)
+                     ("git time machine" . git-timemachine)
                      ("shell" . shell)
                      ("eshell" . eshell)
                      ("sql - postgres" . sql-postgres)

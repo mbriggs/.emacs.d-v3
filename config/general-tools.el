@@ -1,5 +1,16 @@
 (use-package imenu-anywhere :ensure t)
-(use-package paradox :ensure t)
+(use-package htmlize :ensure t)
+(use-package ag :ensure t)
+
+(use-package inf-mongo
+  :quelpa (inf-mongo
+           :fetcher github
+           :repo "tobiassvn/inf-mongo"))
+
+(use-package discover-my-major
+  :quelpa (discover-my-major
+           :fetcher github
+           :repo "steckerhalter/discover-my-major"))
 
 (use-package expand-region
              :ensure t
