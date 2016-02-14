@@ -36,6 +36,7 @@
 (use-package ido-ubiquitous
              :ensure t
              :init
+             (ido-ubiquitous-mode)
              (ido-ubiquitous-initialize))
 
 (provide 'conf-ido)

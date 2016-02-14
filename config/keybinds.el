@@ -120,19 +120,56 @@
 
 ;; commands
 
+(defun rename-this-file-and-buffer (new-name)
+  "Renames both current buffer and file it's visiting to NEW-NAME."
+  (interactive "sNew name: ")
+  (let ((name (buffer-name))
+        (filename (buffer-file-name)))
+    (unless filename
+      (error "Buffer '%s' is not visiting a file!" name))
+    (if (get-buffer new-name)
+        (message "A buffer named '%s' already exists!" new-name)
+      (progn
+        (rename-file name new-name 1)
+        (rename-buffer new-name)
+        (set-visited-file-name new-name)
+        (set-buffer-modified-p nil)))))
+
+(defun delete-this-buffer-and-file ()
+  "Removes file connected to current buffer and kills buffer."
+  (interactive)
+  (let ((filename (buffer-file-name))
+        (buffer (current-buffer))
+        (name (buffer-name)))
+    (if (not (and filename (file-exists-p filename)))
+        (error "Buffer '%s' is not visiting a file!" name)
+      (when (yes-or-no-p "Are you sure you want to remove this file? ")
+        (delete-file filename)
+        (kill-buffer buffer)
+        (message "File '%s' successfully removed" filename)))))
+
+
 (defun mb/backwards-word ()
   (interactive)
   (let ((end-of-previous-word (mb/end-of-previous-word)))
-    (if (eq (point) end-of-previous-word)
-        (forward-word -1)
-      (goto-char end-of-previous-word))))
+    (cond
+     ((< (point) end-of-previous-word)
+      (forward-word -1))
+     ((eq (point) end-of-previous-word)
+      (forward-word -1))
+     (t
+      (goto-char end-of-previous-word)))))
 
 (defun mb/forward-word ()
   (interactive)
   (let ((start-of-next-word (mb/start-of-next-word)))
-    (if (eq (point) start-of-next-word)
-        (forward-word)
-      (goto-char start-of-next-word))))
+    (cond
+     ((> (point) start-of-next-word)
+      (forward-word 1))
+     ((eq (point) start-of-next-word)
+      (forward-word 1))
+     (t
+      (goto-char start-of-next-word)))))
 
 (defun mb/duplicate-line-or-region ()
   (interactive)

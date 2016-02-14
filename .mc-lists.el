@@ -7,6 +7,8 @@
         mb/end-of-line
         mb/forward-word
         mb/start-of-line
+        mc/skip-to-next-like-thi
+        sp-kill-sexp
         ))
 
 (setq mc/cmds-to-run-once
