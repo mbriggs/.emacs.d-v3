@@ -45,9 +45,9 @@
 
 (use-package exec-path-from-shell
              :ensure t
-             :defer nil
              :init
              (setq exec-path-from-shell-check-startup-files nil)
+             (require 'exec-path-from-shell)
              :config
              (exec-path-from-shell-initialize))
 
@@ -61,7 +61,7 @@
                  general-tools
                  defuns
                  modeline
-                 keybinds
+                 editing
                  langs
 
                  conf-company

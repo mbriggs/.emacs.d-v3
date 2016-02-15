@@ -58,28 +58,28 @@
     (company-abort)))
 
 (use-package yasnippet
-             :ensure t
-             :config
-             (define-key yas-minor-mode-map [tab] nil)
-             (define-key yas-minor-mode-map (kbd "TAB") nil)
+  :ensure t
+  :config
+  (define-key yas-minor-mode-map [tab] nil)
+  (define-key yas-minor-mode-map (kbd "TAB") nil)
 
-             (define-key yas-keymap [tab] 'tab-complete-or-next-field)
-             (define-key yas-keymap (kbd "TAB") 'tab-complete-or-next-field)
-             (define-key yas-keymap [(control tab)] 'yas-next-field)
-             (define-key yas-keymap (kbd "C-g") 'abort-company-or-yas))
+  (define-key yas-keymap [tab] 'tab-complete-or-next-field)
+  (define-key yas-keymap (kbd "TAB") 'tab-complete-or-next-field)
+  (define-key yas-keymap [(control tab)] 'yas-next-field)
+  (define-key yas-keymap (kbd "C-g") 'abort-company-or-yas))
 
 
 (use-package company-statistics :ensure t)
-(use-package
-  company
+(use-package company
   :ensure t
-  :defer nil
   :bind* (("<tab>" . tab-indent-or-complete)
           ("C-<return>" . company-complete-common))
   :init
   (setq company-dabbrev-downcase nil)
   (global-company-mode)
-  (company-statistics-mode))
+  (company-statistics-mode)
+  (bind-keys :map company-active-map
+             ("<escape>" . company-abort)))
 
 
 (provide 'conf-company)

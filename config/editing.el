@@ -12,7 +12,7 @@
  ("M-<backspace>" . mb/delete-whole-line)
  ("<escape>" . keyboard-escape-quit)
  ("M-<return>" . mb/open-line)
- ("M-S-<return>" . mb/open-line-above)
+ ("S-<return>" . mb/open-line-above)
  ("M-d" . mb/duplicate-line-or-region)
  ("M-c" . mb/copy-line-or-region)
  ("M-v" . yank)
@@ -61,7 +61,7 @@
 
 ;; toolbox
 
-(defvar *mb/tools* '(("log" . magit-log-buffer-file)
+(defvar *mb:tools* '(("log" . magit-log-buffer-file)
                      ("butler" . butler-status)
                      ("buffers" . ibuffer)
                      ("branch" . magit-checkout)
@@ -73,6 +73,8 @@
                      ("gist-list" . yagist-list)
                      ("gist" . yagist-region-or-buffer)
                      ("gist - private" . yagist-region-or-buffer-private)
+                     ("rake" . rake)
+                     ("rake - regenerate" . rake-regenerate-cache)
                      ("erc" . start-erc)
                      ("git time machine" . git-timemachine)
                      ("shell" . shell)
@@ -81,19 +83,25 @@
                      ("open on github" . open-github-from-here)
                      ("prodigy" . prodigy)
                      ("mongo" . inf-mongo)
-                     ("delete this file and buffer" . delete-this-buffer-and-file)
-                     ("rename this file and buffer" . rename-this-file-and-buffer)
+                     ("delete this file and buffer" . mb/delete-this-buffer-and-file)
+                     ("rename this file and buffer" . mb/rename-this-file-and-buffer)
+
                      ("occur" . occur)
                      ("rubocop" . rubocop-autocorrect-current-file)
                      ("emacs dir" . dired-to-emacs-dir)))
 
+(defvar *mb:prev-tool* nil)
 (defun mb/toolbox ()
   (interactive)
-  (let ((choice (ido-completing-read "Tool: " (-map 'car *mb/tools*))))
+  (let* ((prompt (concat "Tool" (when *mb:prev-tool* (concat " (" *mb:prev-tool* ")")) ": "))
+         (possible-choices (sort (-map 'car *mb:tools*) 'string<))
+         (choice (or (ido-completing-read prompt possible-choices)
+                    *mb:prev-tool*)))
+    (setq *mb:prev-tool* choice)
     (--> choice
-         (assoc-string it *mb/tools*)
+         (assoc-string it *mb:tools*)
          (cdr it)
-         (funcall it))))
+         (call-interactively it))))
 
 ;; utils
 
@@ -120,10 +128,10 @@
 
 ;; commands
 
-(defun rename-this-file-and-buffer (new-name)
-  "Renames both current buffer and file it's visiting to NEW-NAME."
-  (interactive "sNew name: ")
-  (let ((name (buffer-name))
+(defun mb/rename-this-file-and-buffer ()
+  (interactive)
+  (let ((new-name (read-string "New Name: "))
+        (name (buffer-name))
         (filename (buffer-file-name)))
     (unless filename
       (error "Buffer '%s' is not visiting a file!" name))
@@ -135,8 +143,7 @@
         (set-visited-file-name new-name)
         (set-buffer-modified-p nil)))))
 
-(defun delete-this-buffer-and-file ()
-  "Removes file connected to current buffer and kills buffer."
+(defun mb/delete-this-buffer-and-file ()
   (interactive)
   (let ((filename (buffer-file-name))
         (buffer (current-buffer))
@@ -269,4 +276,4 @@
       (kill-region (region-beginning) (region-end))
     (kill-whole-line)))
 
-(provide 'keybinds)
+(provide 'editing)

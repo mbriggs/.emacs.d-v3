@@ -50,7 +50,6 @@
 
 (use-package volatile-highlights
   :ensure t
-  :defer nil
   :config
   (volatile-highlights-mode t)
   (with-theme-colors
