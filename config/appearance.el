@@ -14,11 +14,10 @@
     (menu-bar-mode -1))
 
 
-(let ((font "Menlo-15"))
+(let ((font "Operator Mono-18"))
   (set-frame-font font)
   (add-to-list 'default-frame-alist
                `(font . ,font)))
-
 
 (line-number-at-pos)
 

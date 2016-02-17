@@ -85,8 +85,9 @@
                      ("mongo" . inf-mongo)
                      ("delete this file and buffer" . mb/delete-this-buffer-and-file)
                      ("rename this file and buffer" . mb/rename-this-file-and-buffer)
-
+                     ("packages" . paradox-list-packages)
                      ("occur" . occur)
+                     ("kill" . vkill)
                      ("rubocop" . rubocop-autocorrect-current-file)
                      ("emacs dir" . dired-to-emacs-dir)))
 

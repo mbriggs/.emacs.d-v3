@@ -36,6 +36,7 @@
   (if (or (not yas/minor-mode)
           (null (do-yas-expand)))
       (if company-candidates
+
           (company-complete-selection)
         (when (check-expansion)
           (company-manual-begin)

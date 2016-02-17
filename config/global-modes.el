@@ -6,6 +6,11 @@
   :init
   (global-anzu-mode +1))
 
+(use-package ws-butler
+  :ensure t
+  :init
+  (ws-butler-global-mode +1))
+
 (use-package multiple-cursors
   :ensure t
   :bind (("M-'" . mc/mark-next-like-this-word)

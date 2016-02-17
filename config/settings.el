@@ -20,6 +20,7 @@
   require-final-newline t
   indicate-empty-lines nil
   recentf-max-saved-items 80
+  password-cache-expiry (* 60 15)
   dabbrev-case-replace nil
   recentf-exclude '("/tmp/" "/ssh:"))
 
@@ -41,7 +42,7 @@
 (tooltip-mode -1)
 (recentf-mode 1)
 
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
+;(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 (defun save-all ()
   (interactive)

@@ -1,6 +1,17 @@
 (use-package imenu-anywhere :ensure t)
 (use-package htmlize :ensure t)
 (use-package ag :ensure t)
+(use-package paradox :ensure t)
+
+(use-package vkill
+  :ensure t
+  :commands (vkill))
+
+(use-package goto-chg
+  :ensure t
+  :commands (goto-last-change goto-last-change-reverse)
+  :bind (("C-o" . goto-last-change)
+         ("C-O" . goto-last-change-reverse)))
 
 (use-package inf-mongo
   :quelpa (inf-mongo
