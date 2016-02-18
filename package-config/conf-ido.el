@@ -18,12 +18,19 @@
   (flx-ido-mode 1)
   ;; disable ido faces to see flx highlights.
   (setq ido-use-faces nil)
-  ;; set gc threshold to 20mb
-  (setq gc-cons-threshold 20000000)
   (setq ido-enable-flex-matching t)
   (setq ido-use-filename-at-point nil)
   (setq ido-auto-merge-work-directories-length -1)
   (setq ido-use-virtual-buffers t)
+
+  (defun my-minibuffer-setup-hook ()
+    (setq gc-cons-threshold most-positive-fixnum))
+
+  (defun my-minibuffer-exit-hook ()
+    (setq gc-cons-threshold 800000))
+
+  (add-hook 'minibuffer-setup-hook #'my-minibuffer-setup-hook)
+  (add-hook 'minibuffer-exit-hook #'my-minibuffer-exit-hook)
 
   ;; Allow the same buffer to be open in different frames
   (setq ido-default-buffer-method 'selected-window))

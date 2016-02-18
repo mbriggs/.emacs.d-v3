@@ -1,5 +1,6 @@
 (use-package git-timemachine :ensure t)
 (use-package yagist :ensure t)
+(use-package gh :ensure t)
 
 (use-package open-github-from-here
   :quelpa (open-github-from-here :fetcher github :repo "mbriggs/emacs-open-github-from-here")
@@ -22,6 +23,10 @@
              magit-checkout
              magit-log-buffer))
 
+(use-package magit-gh-pulls
+  :ensure t
+  :init
+  (add-hook 'magit-mode-hook 'turn-on-magit-gh-pulls))
 
 
 (provide 'conf-git)

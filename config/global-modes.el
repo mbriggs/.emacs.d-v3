@@ -11,6 +11,11 @@
   :init
   (ws-butler-global-mode +1))
 
+(use-package fic-mode
+  :ensure t
+  :init
+  (add-hook 'prog-mode-hook 'fic-mode))
+
 (use-package multiple-cursors
   :ensure t
   :bind (("M-'" . mc/mark-next-like-this-word)

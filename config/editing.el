@@ -13,6 +13,8 @@
  ("<escape>" . keyboard-escape-quit)
  ("M-<return>" . mb/open-line)
  ("S-<return>" . mb/open-line-above)
+ ("A-n" . next-error)
+ ("A-p" . previous-error)
  ("M-d" . mb/duplicate-line-or-region)
  ("M-c" . mb/copy-line-or-region)
  ("M-v" . yank)
@@ -24,13 +26,13 @@
  ("M-Z" . undo)
  ("M-a" . mark-whole-buffer)
  ("M-J" . mb/join-line)
- ("A-J" . mb/fuse-line)
- ("C-p" . scroll-down-line)
- ("C-n" . scroll-up-line)
+ ("C-j" . mb/fuse-line)
+ ("C-p" . mb/scroll-down-line)
+ ("C-n" . mb/scroll-up-line)
  ("C-f" . dired)
  ("M-j" . other-window)
- ("A-w" . split-window-right-and-move-there)
- ("A-W" . split-window-below-and-move-there)
+ ("M-u" . split-window-right-and-move-there)
+ ("M-U" . split-window-below-and-move-there)
  ("M-P" . projectile-switch-project)
  ("M-w" . delete-window)
  ("M--" . delete-other-windows)
@@ -42,6 +44,7 @@
  ("M-q" . save-buffers-kill-emacs)
  ("M-o" . projectile-find-file)
  ("M-O" . ido-find-file)
+ ("M-/" . comment-or-uncomment-region-or-line)
 
  ("<f3>" . flycheck-list-errors)
  ("<f5>" . projectile-regenerate-tags))
@@ -62,7 +65,6 @@
 ;; toolbox
 
 (defvar *mb:tools* '(("log" . magit-log-buffer-file)
-                     ("butler" . butler-status)
                      ("buffers" . ibuffer)
                      ("branch" . magit-checkout)
                      ("clean" . clean-up-buffer-or-region)
@@ -70,6 +72,7 @@
                      ("ag - project" . ag-project)
                      ("ag - location" . ag)
                      ("ag - file type" . ag-project-files)
+                     ("jenkins" . jenkins)
                      ("gist-list" . yagist-list)
                      ("gist" . yagist-region-or-buffer)
                      ("gist - private" . yagist-region-or-buffer-private)
@@ -105,6 +108,16 @@
          (call-interactively it))))
 
 ;; utils
+
+(defun mb/scroll-down-line ()
+  (interactive)
+  (dotimes (i 3)
+    (scroll-down-line)))
+
+(defun mb/scroll-up-line ()
+  (interactive)
+  (dotimes (i 3)
+    (scroll-up-line)))
 
 (defun mb/line-beginning-text-position ()
   (save-excursion

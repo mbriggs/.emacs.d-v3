@@ -44,40 +44,42 @@
 (setq mac-option-modifier 'alt)
 
 (use-package exec-path-from-shell
-             :ensure t
-             :init
-             (setq exec-path-from-shell-check-startup-files nil)
-             (require 'exec-path-from-shell)
-             :config
-             (exec-path-from-shell-initialize))
+  :ensure t
+  :init
+  (setq exec-path-from-shell-check-startup-files nil)
+  (require 'exec-path-from-shell)
+  :config
+  (exec-path-from-shell-initialize))
 
 (let ((secret-path (expand-file-name "~/Dropbox/secrets.el")))
   (when (file-exists-p secret-path)
     (load-file secret-path)))
 
-(mapc 'require '(settings
-                 appearance
-                 global-modes
-                 general-tools
-                 defuns
-                 modeline
-                 editing
-                 langs
+(let ((gc-cons-threshold most-positive-fixnum))
+  (mapc 'require '(settings
+                   appearance
+                   global-modes
+                   general-tools
+                   defuns
+                   modeline
+                   editing
+                   langs
 
-                 conf-company
-                 conf-erc
-                 conf-snippets
-                 conf-git
-                 conf-parens
-                 conf-ido
-                 conf-markdown
-                 conf-butler
-                 conf-ruby
-                 conf-elixir
-                 conf-shell
-                 conf-prodigy
-                 conf-web
-                 conf-js))
+                   conf-company
+                   conf-erc
+                   conf-snippets
+                   conf-git
+                   conf-parens
+                   conf-ido
+                   conf-markdown
+                   conf-butler
+                   conf-ruby
+                   conf-elixir
+                   conf-shell
+                   conf-prodigy
+                   conf-web
+                   conf-js)))
+
 
 (require 'server)
 (unless (server-running-p)

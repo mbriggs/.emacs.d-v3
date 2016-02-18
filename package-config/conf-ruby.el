@@ -22,19 +22,21 @@
 
 (use-package rspec-mode
   :ensure t
-  :bind (:map ruby-mode-map
-              ("<return>" . reindent-then-newline-and-indent)
-              ("M-t ," . rspec-toggle-spec-and-target)
-              ("M-t t" . rspec-verify-single)
-              ("M-t l" . rspec-rerun)
-              ("M-t f" . rspec-verify)
-              ("M-t a" . rspec-verify-all))
+  :bind
   :init
   (setq rspec-use-rake-flag nil)
-  (setq rspec-spec-command "spring rspec")
-  (add-hook 'enh-ruby-mode-hook 'rspec-mode)
+  (setq rspec-spec-command "rspec")
 
   :config
+  (bind-keys :map enh-ruby-mode-map
+             ("<return>" . reindent-then-newline-and-indent)
+             ("M-t ," . rspec-toggle-spec-and-target)
+             ("M-t t" . rspec-verify-single)
+             ("M-t l" . rspec-rerun)
+             ("M-t f" . rspec-verify)
+             ("M-t a" . rspec-verify-all))
+  (add-hook 'enh-ruby-mode-hook 'rspec-mode)
+
   (defadvice rspec-compile (around rspec-compile-around)
     "Use BASH shell for running the specs because of ZSH issues."
     (let ((shell-file-name "/bin/bash"))
