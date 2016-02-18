@@ -1,6 +1,5 @@
-(require 'dash)
-(require 's)
-(eval-after-load "dash" '(dash-enable-font-lock))
+(use-package dash :ensure t :init (dash-enable-font-lock))
+(use-package s :ensure t)
 
 (defun split-window-right-and-move-there ()
   (interactive)
@@ -123,44 +122,6 @@
   (interactive)
   (ido-find-file-in-dir (projectile-project-root)))
 
-(defun delete-this-buffer-and-file ()
-  "Removes file connected to current buffer and kills buffer."
-  (interactive)
-  (let ((filename (buffer-file-name))
-        (buffer (current-buffer))
-        (name (buffer-name)))
-    (if (not (and filename (file-exists-p filename)))
-        (error "Buffer '%s' is not visiting a file!" name)
-      (when (yes-or-no-p "Are you sure you want to remove this file? ")
-        (delete-file filename)
-        (kill-buffer buffer)
-        (message "File '%s' successfully removed" filename)))))
-
-(defun duplicate-region (&optional num start end)
-  "Duplicates the region bounded by START and END NUM times.
-If no START and END is provided, the current region-beginning and
-region-end is used."
-  (interactive "p")
-  (let* ((start (or start (region-beginning)))
-         (end (or end (region-end)))
-         (region (buffer-substring start end)))
-    (goto-char end)
-    (dotimes (i num)
-      (insert region)))
-  (evil-normal-state)
-  (evil-visual-restore))
-
-(defun duplicate-current-line (&optional num)
-  "Duplicate the current line NUM times."
-  (interactive "p")
-  (save-excursion
-    (when (eq (point-at-eol) (point-max))
-      (goto-char (point-max))
-      (newline)
-      (forward-char -1))
-    (duplicate-region num (point-at-bol) (1+ (point-at-eol)))))
-
-
 (defun one-shot-keybinding (key command)
   (set-temporary-overlay-map
    (let ((map (make-sparse-keymap)))
@@ -252,22 +213,6 @@ region-end is used."
 (defun copy-to-end-of-line ()
   (interactive)
   (copy-region-as-kill (point) (point-at-eol)))
-
-(defun rename-this-file-and-buffer (new-name)
-  "Renames both current buffer and file it's visiting to NEW-NAME."
-  (interactive "sNew name: ")
-  (let ((name (buffer-name))
-        (filename (buffer-file-name)))
-    (unless filename
-      (error "Buffer '%s' is not visiting a file!" name))
-    (if (get-buffer new-name)
-        (message "A buffer named '%s' already exists!" new-name)
-      (progn
-        (rename-file name new-name 1)
-        (rename-buffer new-name)
-        (set-visited-file-name new-name)
-        (set-buffer-modified-p nil)))))
-
 
 (defun fix-buffer-directory ()
   (interactive)

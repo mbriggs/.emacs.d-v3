@@ -20,6 +20,7 @@
   require-final-newline t
   indicate-empty-lines nil
   recentf-max-saved-items 80
+  password-cache-expiry (* 60 15)
   dabbrev-case-replace nil
   recentf-exclude '("/tmp/" "/ssh:"))
 
@@ -29,7 +30,6 @@
   indicate-buffer-boundaries nil
   tab-width 2)
 
-(super-save-mode +1)
 (global-auto-revert-mode 1)
 (fset 'yes-or-no-p 'y-or-n-p)
 (delete-selection-mode t)
@@ -42,7 +42,7 @@
 (tooltip-mode -1)
 (recentf-mode 1)
 
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
+;(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 (defun save-all ()
   (interactive)

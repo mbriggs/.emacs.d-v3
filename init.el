@@ -17,50 +17,69 @@
 
 (cd "~")
 
-(require 'cask "~/.cask/cask.el")
-(cask-initialize)
+;; bootstrap quelpa, set up quelpa handler for use package
+
+(require 'package)
+(add-to-list 'package-archives
+             '("melpa" . "https://melpa.org/packages/"))
+(when (< emacs-major-version 24)
+  (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
+(package-initialize)
+
+(if (require 'quelpa nil t)
+    (quelpa-self-upgrade)
+  (with-temp-buffer
+    (url-insert-file-contents "https://raw.github.com/quelpa/quelpa/master/bootstrap.el")
+    (eval-buffer)))
+
+(quelpa
+ '(quelpa-use-package
+   :fetcher github
+   :repo "quelpa/quelpa-use-package"))
+(require 'quelpa-use-package)
 
 (setq mac-option-key-is-meta nil)
 (setq mac-command-key-is-meta t)
 (setq mac-command-modifier 'meta)
 (setq mac-option-modifier 'alt)
 
-(when (memq window-system '(mac ns))
+(use-package exec-path-from-shell
+  :ensure t
+  :init
   (setq exec-path-from-shell-check-startup-files nil)
-
   (require 'exec-path-from-shell)
+  :config
   (exec-path-from-shell-initialize))
 
 (let ((secret-path (expand-file-name "~/Dropbox/secrets.el")))
   (when (file-exists-p secret-path)
     (load-file secret-path)))
 
-(mapc 'require '(settings
-                 appearance
-                 global-modes
-                 defuns
-                 modeline
-                 keybinds
+(let ((gc-cons-threshold most-positive-fixnum))
+  (mapc 'require '(settings
+                   appearance
+                   global-modes
+                   general-tools
+                   defuns
+                   modeline
+                   editing
+                   langs
 
-                 conf-evil
-                 conf-company
-                 conf-erc
-                 conf-snippets
-                 conf-git
-                 conf-parens
-                 conf-flycheck
-                 conf-volatile
-                 conf-ido
-                 conf-neotree
-                 conf-markdown
-                 conf-butler
-                 conf-sass
-                 conf-ruby
-                 conf-elixir
-                 conf-shell
-                 conf-prodigy
-                 conf-web
-                 conf-js))
+                   conf-company
+                   conf-erc
+                   conf-snippets
+                   conf-git
+                   conf-parens
+                   conf-ido
+                   conf-markdown
+                   conf-butler
+                   conf-ruby
+                   conf-elixir
+                   conf-shell
+                   conf-prodigy
+                   conf-web
+                   conf-js)))
+
 
 (require 'server)
 (unless (server-running-p)

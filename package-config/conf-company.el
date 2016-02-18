@@ -1,8 +1,3 @@
-(add-hook 'after-init-hook 'global-company-mode)
-(add-hook 'after-init-hook 'company-statistics-mode)
-
-
-
 (defun check-expansion ()
   (save-excursion
     (if (looking-at "\\_>") t
@@ -41,6 +36,7 @@
   (if (or (not yas/minor-mode)
           (null (do-yas-expand)))
       (if company-candidates
+
           (company-complete-selection)
         (when (check-expansion)
           (company-manual-begin)
@@ -62,24 +58,29 @@
       (yas-abort-snippet)
     (company-abort)))
 
-(global-set-key [tab] 'tab-indent-or-complete)
-(global-set-key (kbd "TAB") 'tab-indent-or-complete)
-(global-set-key [(control return)] 'company-complete-common)
+(use-package yasnippet
+  :ensure t
+  :config
+  (define-key yas-minor-mode-map [tab] nil)
+  (define-key yas-minor-mode-map (kbd "TAB") nil)
 
-(eval-after-load "company-mode"
-  '(lambda ()
-     (setq company-dabbrev-downcase nil)
-     (define-key company-active-map [tab] 'expand-snippet-or-complete-selection)
-     (define-key company-active-map (kbd "TAB") 'expand-snippet-or-complete-selection)))
+  (define-key yas-keymap [tab] 'tab-complete-or-next-field)
+  (define-key yas-keymap (kbd "TAB") 'tab-complete-or-next-field)
+  (define-key yas-keymap [(control tab)] 'yas-next-field)
+  (define-key yas-keymap (kbd "C-g") 'abort-company-or-yas))
 
-(eval-after-load "yasnippet"
-  '(lambda ()
-     (define-key yas-minor-mode-map [tab] nil)
-     (define-key yas-minor-mode-map (kbd "TAB") nil)
 
-     (define-key yas-keymap [tab] 'tab-complete-or-next-field)
-     (define-key yas-keymap (kbd "TAB") 'tab-complete-or-next-field)
-     (define-key yas-keymap [(control tab)] 'yas-next-field)
-     (define-key yas-keymap (kbd "C-g") 'abort-company-or-yas)))
+(use-package company-statistics :ensure t)
+(use-package company
+  :ensure t
+  :bind* (("<tab>" . tab-indent-or-complete)
+          ("C-<return>" . company-complete-common))
+  :init
+  (setq company-dabbrev-downcase nil)
+  (global-company-mode)
+  (company-statistics-mode)
+  (bind-keys :map company-active-map
+             ("<escape>" . company-abort)))
+
 
 (provide 'conf-company)

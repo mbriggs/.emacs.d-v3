@@ -1,19 +1,27 @@
-(load-theme 'ample t t)
-(enable-theme 'ample)
+(use-package ample-theme
+  :ensure t
+  :init
+  (load-theme 'ample t t)
+  (enable-theme 'ample))
 
+(use-package prettify-symbols
+  :init
+  (global-prettify-symbols-mode))
 
-(add-hook 'prog-mode-hook 'highlight-numbers-mode)
+(use-package highlight-numbers
+  :ensure t
+  :init
+  (add-hook 'prog-mode-hook 'highlight-numbers-mode))
 
 ;; only turn off menus if not osx
 (if (not (eq system-type 'darwin))
     (menu-bar-mode -1))
 
 
-(let ((font "Menlo-15"))
+(let ((font "Operator Mono-18"))
   (set-frame-font font)
   (add-to-list 'default-frame-alist
                `(font . ,font)))
-
 
 (line-number-at-pos)
 
@@ -46,8 +54,10 @@
                               line)
                       'face 'linum)))
 
-(require 'highlight-cl)
-(add-hook 'emacs-lisp-mode-hook 'highlight-cl-add-font-lock-keywords)
+(use-package highlight-cl
+             :ensure t
+             :init
+             (add-hook 'emacs-lisp-mode-hook 'highlight-cl-add-font-lock-keywords))
 
 (defmacro with-theme-colors (&rest body)
   `(let ((green "#6aaf50")

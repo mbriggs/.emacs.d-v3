@@ -1,28 +1,9 @@
-(source gnu)
-(source melpa)
-
-;;; environment
-(depends-on "cask")
-(depends-on "exec-path-from-shell")
-
-;;; utility
-(depends-on "bind-key")
-(depends-on "free-keys")
-(depends-on "projectile")
-(depends-on "yasnippet")
-(depends-on "super-save")
-(depends-on "imenu-anywhere")
 (depends-on "avy")
 (depends-on "smex")
-(depends-on "evil-jumper")
-(depends-on "evil-quickscope")
-(depends-on "evil-ediff")
-(depends-on "evil-mc")
 (depends-on "git-timemachine")
 (depends-on "ample-theme")
 (depends-on "open-github-from-here" :git "http://github.com/mbriggs/emacs-open-github-from-here.git")
 (depends-on "discover-my-major" :git "http://github.com/steckerhalter/discover-my-major.git")
-(depends-on "2048-game")
 (depends-on "etags-select")
 (depends-on "neotree")
 (depends-on "paradox")
@@ -44,9 +25,6 @@
 (depends-on "company-statistics")
 (depends-on "ace-jump-mode")
 (depends-on "volatile-highlights")
-(depends-on "evil")
-(depends-on "evil-surround")
-(depends-on "evil-indent-textobject")
 (depends-on "rainbow-mode")
 (depends-on "emojify")
 

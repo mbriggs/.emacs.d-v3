@@ -1,10 +1,10 @@
-(defvar butler-server-list)
-
-(setq butler-server-list
-      `((jenkins "Work"
-                 (server-address . ,alfred-url)
-                 (server-user . ,alfred-user)
-                 (server-password . ,alfred-pass))))
+(use-package jenkins
+  :ensure t
+  :config
+  (setq
+   jenkins-api-token alfred-token
+   jenkins-url alfred-url
+   jenkins-username alfred-user))
 
 
 (provide 'conf-butler)
