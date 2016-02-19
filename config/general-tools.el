@@ -2,6 +2,24 @@
 (use-package htmlize :ensure t)
 (use-package ag :ensure t)
 (use-package paradox :ensure t)
+(use-package esup :ensure t)
+
+(use-package swiper
+  :ensure t
+  :bind* (("M-A" . counsel-M-x)
+          ("M-f" . swiper))
+  :init
+  (require 'ivy)
+  (ivy-mode 1)
+  (setq
+   ivy-use-virtual-buffers t
+   magit-completing-read-function 'ivy-completing-read)
+  (bind-keys :map ivy-mode-map
+             ("M-n" . ivy-next-line)
+             ("M-p" . ivy-previous-line))
+  (bind-keys :map ivy-minibuffer-map
+             ("M-;" . ivy-alt-done)))
+
 
 (use-package vkill
   :ensure t

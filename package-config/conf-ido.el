@@ -2,18 +2,14 @@
 (use-package
   flx-ido
   :ensure t
-  :bind* (:map ido-completion-map
-              (("M-n" . ido-next-match)
-               ("C-n" . ido-next-match)
-               ("M-p" . ido-prev-match)
+  :bind (:map ido-completion-map
+              (("C-n" . ido-next-match)
                ("C-p" . ido-prev-match)))
   :init
   (require 'ido)
   (require 'flx-ido)
-  (require 'ido-ubiquitous)
 
   (ido-mode 1)
-  (ido-everywhere 1)
   (setq flx-ido-threshhold 500)
   (flx-ido-mode 1)
   ;; disable ido faces to see flx highlights.
@@ -39,11 +35,5 @@
              :ensure t
              :init
              (ido-vertical-mode 1))
-
-(use-package ido-ubiquitous
-             :ensure t
-             :init
-             (ido-ubiquitous-mode)
-             (ido-ubiquitous-initialize))
 
 (provide 'conf-ido)

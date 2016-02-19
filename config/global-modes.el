@@ -26,6 +26,7 @@
 (use-package projectile
   :ensure t
   :init
+  (setq projectile-completion-system 'ivy)
   (setq projectile-enable-caching nil)
   (projectile-global-mode))
 

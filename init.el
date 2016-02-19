@@ -70,7 +70,6 @@
                    conf-snippets
                    conf-git
                    conf-parens
-                   conf-ido
                    conf-markdown
                    conf-butler
                    conf-ruby
