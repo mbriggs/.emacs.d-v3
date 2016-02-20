@@ -17,6 +17,7 @@
  ("A-p" . previous-error)
  ("M-d" . mb/duplicate-line-or-region)
  ("M-c" . mb/copy-line-or-region)
+ ("M-O" . ido-find-file)
  ("M-v" . yank)
  ("M-x" . mb/cut-line-or-region)
  ("M-i" . mb/toolbox)
@@ -41,7 +42,6 @@
  ("M-l" . goto-line-with-feedback)
  ("M-q" . save-buffers-kill-emacs)
  ("M-o" . projectile-find-file)
- ("M-O" . ido-find-file)
  ("M-/" . comment-or-uncomment-region-or-line)
 
  ("<f3>" . flycheck-list-errors)

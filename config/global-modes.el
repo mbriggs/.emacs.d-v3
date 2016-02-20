@@ -33,7 +33,7 @@
 (use-package avy
   :ensure t
   :commands avy-goto-word-1
-  :bind ("M-;" . avy-goto-word-1))
+  :bind* ("M-;" . avy-goto-word-1))
 
 
 (use-package flycheck

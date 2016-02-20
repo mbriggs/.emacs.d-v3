@@ -5,7 +5,9 @@
 (use-package esup :ensure t)
 
 (use-package swiper
-  :ensure t
+  :quelpa (swiper
+           :fetcher github
+           :repo "abo-abo/swiper")
   :bind* (("M-A" . counsel-M-x)
           ("M-f" . swiper))
   :init
@@ -17,8 +19,7 @@
   (bind-keys :map ivy-mode-map
              ("M-n" . ivy-next-line)
              ("M-p" . ivy-previous-line))
-  (bind-keys :map ivy-minibuffer-map
-             ("M-;" . ivy-alt-done)))
+  (define-key ivy-minibuffer-map (kbd "<return>") 'ivy-alt-done))
 
 
 (use-package vkill
@@ -49,9 +50,9 @@
   :init
   (require 'expand-region))
 
-(use-package smex
-  :ensure t
-  :bind* ("M-A" . smex))
+;; (use-package smex
+;;   :ensure t
+;;   :bind* ("M-A" . smex))
 
 (use-package etags-select
   :ensure t
