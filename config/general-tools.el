@@ -1,3 +1,4 @@
+(use-package helm :ensure t)
 (use-package imenu-anywhere :ensure t)
 (use-package htmlize :ensure t)
 (use-package ag :ensure t)

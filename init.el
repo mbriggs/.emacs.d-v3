@@ -77,7 +77,8 @@
                    conf-shell
                    conf-prodigy
                    conf-web
-                   conf-js)))
+                   conf-js
+                   )))
 
 
 (require 'server)

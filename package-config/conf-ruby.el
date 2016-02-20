@@ -4,10 +4,6 @@
 (use-package bundler :ensure t)
 (use-package rubocop :ensure t)
 
-(use-package ruby-mode
-  :mode "\\.\\(rb\\|rabl\\|Rakefile\\|Gemfile\\)$"
-  :interpreter "ruby")
-
 (use-package rbenv
   :ensure t
   :init

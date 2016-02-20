@@ -4,10 +4,6 @@
   (load-theme 'ample t t)
   (enable-theme 'ample))
 
-(use-package prettify-symbols
-  :init
-  (global-prettify-symbols-mode))
-
 (use-package highlight-numbers
   :ensure t
   :init
