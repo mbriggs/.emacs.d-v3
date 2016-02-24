@@ -4,6 +4,7 @@
 (use-package ag :ensure t)
 (use-package paradox :ensure t)
 (use-package esup :ensure t)
+(use-package define-word :ensure t)
 
 (use-package swiper
   :quelpa (swiper

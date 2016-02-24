@@ -14,6 +14,7 @@
  '(comint-scroll-to-bottom-on-input t)
  '(enh-ruby-deep-indent-paren nil)
  '(exec-path-from-shell-check-startup-files nil)
+ '(js-indent-level 2)
  '(js2-language-version 200)
  '(neo-dont-be-alone t)
  '(neo-modern-sidebar t)

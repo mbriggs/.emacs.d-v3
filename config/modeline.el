@@ -28,19 +28,7 @@
                 " ("
                 (if (eq major-mode 'elixir-mode)
                     mode-name
-                  (:eval (propertize mode-name 'face
-                                   (cond
-                                    ((and (bound-and-true-p flycheck-mode)
-                                          (flycheck-has-current-errors-p 'error)
-                                          'mode-line-mode-errors-face))
-                                    ((and (bound-and-true-p flycheck-mode)
-                                          (or (flycheck-has-current-errors-p 'warning)
-                                              (flycheck-has-current-errors-p 'info))
-                                          'mode-line-mode-warning-face))
-                                    ((bound-and-true-p flycheck-mode)
-                                     'mode-line-mode-no-errors-face)
-                                    (t
-                                     'mode-line-mode-face)))))
+                  (:eval (propertize mode-name 'face 'mode-line-mode-face)))
 
                 ") "
                 (:propertize (vc-mode vc-mode)
@@ -130,22 +118,27 @@
                      :inherit 'mode-line-face)
 
  (set-face-attribute 'mode-line-mode-face nil
+                     :slant 'italic
                      :inherit 'mode-line-face)
 
  (set-face-attribute 'mode-line-mode-errors-face nil
+                     :slant 'italic
                      :foreground red
                      :inherit 'mode-line-face)
 
  (set-face-attribute 'mode-line-mode-warning-face nil
+                     :slant 'italic
                      :foreground yellow
                      :inherit 'mode-line-face)
 
  (set-face-attribute 'mode-line-mode-no-errors-face nil
+                     :slant 'italic
                      :foreground green
                      :inherit 'mode-line-face)
 
  (set-face-attribute 'mode-line-minor-mode-face nil
                      :foreground gray
+                     :slant 'italic
                      :inherit 'mode-line-mode-face)
 
  (set-face-attribute 'mode-line-process-face nil

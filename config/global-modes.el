@@ -1,6 +1,17 @@
 (require 'appearance)
 (require 'general-tools)
 
+(use-package page-break-lines
+  :ensure t
+  :init
+  (global-page-break-lines-mode))
+
+(use-package smart-newline
+  :ensure t
+  :init
+  (smart-newline-mode +1))
+
+
 (use-package anzu
   :ensure t
   :init
@@ -21,7 +32,11 @@
   :bind (("M-'" . mc/mark-next-like-this-word)
          ("M-\"" . mc/skip-to-next-like-thi))
   :init
-  (require 'multiple-cursors))
+  (require 'multiple-cursors)
+  (bind-keys :map rectangle-mark-mode-map
+             ("A-SPC" . mc/edit-lines)
+             ("C-<left>" . mc/edit-beginnings-of-lines)
+             ("C-<right>" . mc/edit-ends-of-lines)))
 
 (use-package projectile
   :ensure t

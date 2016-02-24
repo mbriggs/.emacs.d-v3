@@ -3,12 +3,16 @@
 
 (setq mc/cmds-to-run-for-all
       '(
+        ivy-alt-done
         mb/backwards-word
         mb/end-of-line
         mb/forward-word
+        mb/fuse-line
         mb/start-of-line
         mc/skip-to-next-like-thi
+        reindent-then-newline-and-indent
         sp-kill-sexp
+        undo-only
         ))
 
 (setq mc/cmds-to-run-once

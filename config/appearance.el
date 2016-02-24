@@ -14,7 +14,30 @@
     (menu-bar-mode -1))
 
 
-(let ((font "Operator Mono-18"))
+(defvar *code-quotes* '("Most of the biggest problems in software are problems of misconception. - Rich Hickey"
+                        "Constraints are advantages in disguise. - 37 Signals"
+                        "Don't have good ideas if you aren't willing to be responsible for them. - Alan Perlis"
+                        "Fools ignore complexity. Pragmatists suffer it. Some can avoid it. Geniuses remove it. - Alan Perlis"
+                        "The most important property of a program is whether it accomplishes the intention of its user. - C.A.R. Hoare"
+                        "Inside every large program, there is a small program trying to get out. - C.A.R. Hoare"
+                        "Organizations which design systems are constrained to produce designs which are copies of the communication structures of these organizations. - Conway's Law"
+                        "Just because something is easy to measure doesn't mean it's important. - D.H.H."
+                        "A program is like a poem: you cannot write a poem without writing it. - E.W. Dijkstra"
+                        "Simplicity is prerequisite for reliability. - E.W. Dijkstra"
+                        "Good programmers don't just write programs. They build a working vocabulary. - Guy Steele"
+                        "Machines should work. People should think. - IBM Pollyanna Principle"
+                        "Good software, like wine, takes time. - Joel Spolsky"
+                        "No code is faster than no code. - Merb Motto"
+                        "Anything that can possibly go wrong, will go wrong. - Murphy's Law"
+                        "It always takes longer than you expect, even when you take into account Hofstadter's Law. — Hofstadter's Law"
+                        "A clever person solves a problem. A wise person avoids it. — Albert Einstein"
+                        "One accurate measurement is worth more than a thousand expert opinions. - Admiral Grace Hopper"))
+
+
+(setq-default initial-scratch-message
+              (concat ";; " (nth (random (length *code-quotes*)) *code-quotes*)))
+
+(let ((font "Operator Mono Light 16"))
   (set-frame-font font)
   (add-to-list 'default-frame-alist
                `(font . ,font)))
@@ -138,9 +161,9 @@
                          `(web-mode-html-tag-custom-face ((t (:foreground ,blue))))
                          `(web-mode-html-tag-bracket-face ((t (:foreground ,darker-gray))))
                          `(web-mode-html-attr-equal-face ((t (:foreground ,darker-gray))))
-                         `(web-mode-html-attr-custom-face ((t (:foreground ,blue))))
+                         `(web-mode-html-attr-custom-face ((t (:foreground ,blue :slant italic))))
                          `(web-mode-variable-name-face ((t (:foreground nil))))
-                         `(web-mode-html-attr-name-face ((t (:foreground ,blue))))))
+                         `(web-mode-html-attr-name-face ((t (:foreground ,blue :slant italic))))))
 
 
 ;;; general

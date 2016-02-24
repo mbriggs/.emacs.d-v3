@@ -29,4 +29,4 @@
 
 ## Philosophy
 
-This is my third emacs reset. I love emacs, but I dont really like the editing experience. I was previously an evil user, but after some thought, I decided to implement something inspired by the IntelliJ editing experience.
+This is my third emacs reset. I love emacs, but I dont really like the default editing experience. I was previously an evil user, but after some thought, I decided to implement something inspired by the IntelliJ editing experience.

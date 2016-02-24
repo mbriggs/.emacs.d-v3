@@ -13,6 +13,7 @@
  ("<escape>" . keyboard-escape-quit)
  ("M-<return>" . mb/open-line)
  ("S-<return>" . mb/open-line-above)
+ ("A-SPC" . rectangle-mark-mode)
  ("A-n" . next-error)
  ("A-p" . previous-error)
  ("M-d" . mb/duplicate-line-or-region)
