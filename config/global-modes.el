@@ -68,12 +68,6 @@
   :config
   (flycheck-add-mode 'javascript-eslint 'babel-mode))
 
-
-(use-package flycheck-color-mode-line
-  :ensure t
-  :config
-  (add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode))
-
 (use-package volatile-highlights
   :ensure t
   :config

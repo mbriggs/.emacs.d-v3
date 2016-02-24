@@ -26,10 +26,7 @@
                 ;; mode-line-client
                                         ; directory and buffer/file name
                 " ("
-                (if (eq major-mode 'elixir-mode)
-                    mode-name
-                  (:eval (propertize mode-name 'face 'mode-line-mode-face)))
-
+                (:propertize mode-name face mode-line-mode-face)
                 ") "
                 (:propertize (vc-mode vc-mode)
                              face mode-line-minor-mode-face)
@@ -57,14 +54,6 @@
       (setq output (concat ".../" output)))
     output))
 
-(defun mlb/flycheck-state-face ()
-  (cond
-   ((flycheck-has-current-errors-p 'error)
-    'mode-line-mode-errors-face)
-   ((flycheck-has-current-errors-p 'warning)
-    'mode-line-mode-warning-face)
-   (t 'mode-line-folder-face)))
-
 ;; ;; Extra mode line faces
 (make-face 'mode-line-read-only-face)
 (make-face 'mode-line-modified-face)
@@ -73,9 +62,6 @@
 (make-face 'mode-line-position-face)
 (make-face 'mode-line-line-position-face)
 (make-face 'mode-line-mode-face)
-(make-face 'mode-line-mode-errors-face)
-(make-face 'mode-line-mode-warning-face)
-(make-face 'mode-line-mode-no-errors-face)
 (make-face 'mode-line-minor-mode-face)
 (make-face 'mode-line-process-face)
 (make-face 'mode-line-80col-face)
@@ -118,23 +104,7 @@
                      :inherit 'mode-line-face)
 
  (set-face-attribute 'mode-line-mode-face nil
-                     :slant 'italic
-                     :inherit 'mode-line-face)
-
- (set-face-attribute 'mode-line-mode-errors-face nil
-                     :slant 'italic
-                     :foreground red
-                     :inherit 'mode-line-face)
-
- (set-face-attribute 'mode-line-mode-warning-face nil
-                     :slant 'italic
-                     :foreground yellow
-                     :inherit 'mode-line-face)
-
- (set-face-attribute 'mode-line-mode-no-errors-face nil
-                     :slant 'italic
-                     :foreground green
-                     :inherit 'mode-line-face)
+                     :slant 'italic)
 
  (set-face-attribute 'mode-line-minor-mode-face nil
                      :foreground gray

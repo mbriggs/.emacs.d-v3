@@ -33,9 +33,11 @@
                         "A clever person solves a problem. A wise person avoids it. — Albert Einstein"
                         "One accurate measurement is worth more than a thousand expert opinions. - Admiral Grace Hopper"))
 
+(defun mb/fortune ()
+  (nth (random (length *code-quotes*)) *code-quotes*))
 
 (setq-default initial-scratch-message
-              (concat ";; " (nth (random (length *code-quotes*)) *code-quotes*)))
+              (concat ";; " (mb/fortune) "\n\n"))
 
 (let ((font "Operator Mono Light 16"))
   (set-frame-font font)
