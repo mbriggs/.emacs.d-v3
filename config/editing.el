@@ -1,5 +1,11 @@
 (use-package bind-key :ensure t)
 
+(use-package goto-chg
+  :ensure t
+  :bind (("C-<backspace>" . goto-last-change)
+         ("C-S-<backspace>" . goto-last-change-reverse)))
+
+
 (bind-keys*
  ("M-<left>" . mb/start-of-line)
  ("M-<right>" . mb/end-of-line)
@@ -8,7 +14,6 @@
  ("A-<backspace>" . mb/backward-delete-word)
  ("A-S-<backspace>" . mb/delete-word)
  ("M-<backspace>" . mb/delete-whole-line)
- ("<escape>" . keyboard-escape-quit)
  ("M-<return>" . mb/open-line)
  ("S-<return>" . mb/open-line-above)
  ("A-SPC" . rectangle-mark-mode)
@@ -47,18 +52,11 @@
  ("<f3>" . flycheck-list-errors)
  ("<f5>" . projectile-regenerate-tags))
 
+(bind-keys ("<escape>" . mb/quit))
+
 (bind-keys :map isearch-mode-map
            ("M-f" . isearch-repeat-forward)
            ("M-F" . isearch-repeat-backward))
-
-;;; esc ALWAYS quits
-
-(define-key minibuffer-local-map [escape] 'minibuffer-keyboard-quit)
-(define-key minibuffer-local-ns-map [escape] 'minibuffer-keyboard-quit)
-(define-key minibuffer-local-completion-map [escape] 'minibuffer-keyboard-quit)
-(define-key minibuffer-local-must-match-map [escape] 'minibuffer-keyboard-quit)
-(define-key minibuffer-local-isearch-map [escape] 'minibuffer-keyboard-quit)
-(global-set-key [escape] 'keyboard-quit)
 
 ;; utils
 
@@ -102,6 +100,12 @@
 
 
 ;; commands
+
+(defun mb/quit ()
+  (interactive)
+  (if (window-minibuffer-p)
+      (minibuffer-keyboard-quit)
+    (keyboard-quit)))
 
 (defun mb/rename-this-file-and-buffer ()
   (interactive)

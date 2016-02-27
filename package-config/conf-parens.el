@@ -16,7 +16,8 @@
   :init
   (setq
    sp-ignore-modes-list '(minibuffer-inactive-mode
-                          markdown-mode)
+                          markdown-mode
+                          gfm-mode)
    sp-autoskip-closing-pair 'always
    blink-matching-paren t)
   (require 'smartparens-config)
