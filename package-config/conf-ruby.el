@@ -27,6 +27,9 @@
 
   (bind-keys :map rspec-mode-map
              ("<return>" . reindent-then-newline-and-indent)
+             ("M-t ;" . rspec-toggle-spec-and-target)
+             ("M-t d" . rspec-disable-example)
+             ("M-t e" . rspec-enable-example)
              ("M-t t" . rspec-verify-single)
              ("M-t l" . rspec-rerun)
              ("M-t f" . rspec-verify)

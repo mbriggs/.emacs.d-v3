@@ -26,8 +26,7 @@
   (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
 (package-initialize)
 
-(if (require 'quelpa nil t)
-    (quelpa-self-upgrade)
+(when (not (require 'quelpa nil t))
   (with-temp-buffer
     (url-insert-file-contents "https://raw.github.com/quelpa/quelpa/master/bootstrap.el")
     (eval-buffer)))
@@ -58,6 +57,7 @@
 (let ((gc-cons-threshold most-positive-fixnum))
   (mapc 'require '(settings
                    appearance
+                   mb-toolbox
                    global-modes
                    general-tools
                    defuns

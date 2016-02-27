@@ -10,6 +10,7 @@
   :quelpa (swiper
            :fetcher github
            :repo "abo-abo/swiper")
+  :commands (counsel-M-x swiper)
   :bind* (("M-A" . counsel-M-x)
           ("M-f" . swiper))
   :init

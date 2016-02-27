@@ -5,6 +5,8 @@
              :init
              (add-to-list 'auto-mode-alist '("\\.markdown\\'" . gfm-mode))
              (add-to-list 'auto-mode-alist '("\\.md\\'" . gfm-mode))
-             (add-to-list 'auto-mode-alist '("\\.text$" . gfm-mode)))
+             (add-to-list 'auto-mode-alist '("\\.text$" . gfm-mode)) )
+
+
 
 (provide 'conf-markdown)

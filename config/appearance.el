@@ -9,10 +9,16 @@
   :init
   (add-hook 'prog-mode-hook 'highlight-numbers-mode))
 
+(use-package highlight-escape-sequences
+  :ensure t
+  :init
+  (hes-mode))
+
 ;; only turn off menus if not osx
 (if (not (eq system-type 'darwin))
     (menu-bar-mode -1))
 
+(setq-default cursor-type '(bar . 1))
 
 (defvar *code-quotes* '("Most of the biggest problems in software are problems of misconception. - Rich Hickey"
                         "Constraints are advantages in disguise. - 37 Signals"

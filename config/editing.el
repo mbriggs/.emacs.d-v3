@@ -1,6 +1,4 @@
-(use-package dash :ensure t)
 (use-package bind-key :ensure t)
-(require 'dash)
 
 (bind-keys*
  ("M-<left>" . mb/start-of-line)
@@ -16,6 +14,7 @@
  ("A-SPC" . rectangle-mark-mode)
  ("A-n" . next-error)
  ("A-p" . previous-error)
+ ("M-X" . exchange-point-and-mark)
  ("M-d" . mb/duplicate-line-or-region)
  ("M-c" . mb/copy-line-or-region)
  ("M-O" . ido-find-file)
@@ -61,54 +60,6 @@
 (define-key minibuffer-local-isearch-map [escape] 'minibuffer-keyboard-quit)
 (global-set-key [escape] 'keyboard-quit)
 
-;; toolbox
-
-(defvar *mb:tools* '(("log" . magit-log-buffer-file)
-                     ("buffers" . ibuffer)
-                     ("branch" . magit-checkout)
-                     ("clean" . clean-up-buffer-or-region)
-                     ("align" . align-regexp)
-                     ("ag - project" . ag-project)
-                     ("ag - location" . ag)
-                     ("ag - file type" . ag-project-files)
-                     ("jenkins" . jenkins)
-                     ("gist-list" . yagist-list)
-                     ("gist" . yagist-region-or-buffer)
-                     ("gist - private" . yagist-region-or-buffer-private)
-                     ("rake" . rake)
-                     ("rake - regenerate" . rake-regenerate-cache)
-                     ("robe - start" . robe)
-                     ("robe - reload" . robe-rails-refresh)
-                     ("bundle install" . bundle-install)
-                     ("erc" . start-erc)
-                     ("git time machine" . git-timemachine)
-                     ("shell" . shell)
-                     ("eshell" . eshell)
-                     ("sql - postgres" . sql-postgres)
-                     ("open on github" . open-github-from-here)
-                     ("prodigy" . prodigy)
-                     ("mongo" . inf-mongo)
-                     ("delete this file and buffer" . mb/delete-this-buffer-and-file)
-                     ("rename this file and buffer" . mb/rename-this-file-and-buffer)
-                     ("packages" . paradox-list-packages)
-                     ("occur" . occur)
-                     ("kill" . vkill)
-                     ("rubocop" . rubocop-autocorrect-current-file)
-                     ("emacs dir" . dired-to-emacs-dir)))
-
-(defvar *mb:prev-tool* nil)
-(defun mb/toolbox ()
-  (interactive)
-  (let* ((prompt (concat "Tool" (when *mb:prev-tool* (concat " (" *mb:prev-tool* ")")) ": "))
-         (possible-choices (sort (-map 'car *mb:tools*) 'string<))
-         (choice (or (ivy-completing-read prompt possible-choices)
-                    *mb:prev-tool*)))
-    (setq *mb:prev-tool* choice)
-    (--> choice
-         (assoc-string it *mb:tools*)
-         (cdr it)
-         (call-interactively it))))
-
 ;; utils
 
 (defun mb/scroll-down-line ()
@@ -139,8 +90,16 @@
     (forward-word -1)
     (point)))
 
-(defun mb/placeholder (msg)
-  (message msg))
+(defun mb/pos-eol ()
+  (save-excursion
+    (end-of-line)
+    (point)))
+
+(defun mb/pos-bol ()
+  (save-excursion
+    (beginning-of-line)
+    (point)))
+
 
 ;; commands
 
@@ -176,6 +135,11 @@
   (interactive)
   (let ((end-of-previous-word (mb/end-of-previous-word)))
     (cond
+     ((eq (mb/pos-bol) (point))
+      (forward-line -1)
+      (end-of-line))
+     ((< end-of-previous-word (mb/pos-bol))
+      (beginning-of-line))
      ((< (point) end-of-previous-word)
       (forward-word -1))
      ((eq (point) end-of-previous-word)
@@ -187,6 +151,11 @@
   (interactive)
   (let ((start-of-next-word (mb/start-of-next-word)))
     (cond
+     ((eq (mb/pos-eol) (point))
+      (forward-line)
+      (beginning-of-line))
+     ((> start-of-next-word (mb/pos-eol))
+      (end-of-line))
      ((> (point) start-of-next-word)
       (forward-word 1))
      ((eq (point) start-of-next-word)

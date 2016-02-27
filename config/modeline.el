@@ -90,9 +90,11 @@
                      :box `(:color ,bg))
 
  (set-face-attribute 'mode-line-folder-face nil
+                     :slant 'italic
                      :inherit 'mode-line-face)
 
  (set-face-attribute 'mode-line-filename-face nil
+                     :slant 'italic
                      :inherit 'mode-line-face
                      :foreground yellow)
 
