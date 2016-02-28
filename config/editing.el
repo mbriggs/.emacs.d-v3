@@ -35,6 +35,8 @@
  ("C-p" . mb/scroll-down-line)
  ("C-n" . mb/scroll-up-line)
  ("C-f" . dired)
+ ("C-v l" . mc/edit-ends-of-lines)
+ ("C-v h" . mc/edit-beginnings-of-lines)
  ("M-j" . other-window)
  ("M-u" . split-window-right-and-move-there)
  ("M-U" . split-window-below-and-move-there)
@@ -48,7 +50,7 @@
  ("M-l" . goto-line-with-feedback)
  ("M-q" . save-buffers-kill-emacs)
  ("M-o" . projectile-find-file)
- ("M-/" . comment-or-uncomment-region-or-line)
+ ("M-/" . mb/comment-or-uncomment-region-or-line)
 
  ("<f3>" . flycheck-list-errors)
  ("<f5>" . projectile-regenerate-tags))
@@ -102,9 +104,13 @@
 
 ;; commands
 
-(defun mb/push-mark-command ()
+(defun mb/comment-or-uncomment-region-or-line ()
   (interactive)
-  (push-mark-command))
+  (if (region-active-p)
+      (comment-or-uncomment-region (region-beginning) (region-end))
+    (progn
+      (comment-or-uncomment-region (mb/pos-bol) (mb/pos-eol))
+      (forward-line))))
 
 (defun mb/quit ()
   (interactive)
