@@ -11,12 +11,13 @@
 
 (use-package auto-yasnippet
              :ensure t
-             :commands (aya-create aya-expand))
+             :commands (aya-create aya-expand)
+             :bind* (("M-Y" . aya-create)
+                     ("M-y" . aya-expand)))
 
 
 (defun force-yasnippet-off ()
   (setq-local yas-dont-activate t)
   (yas-minor-mode -1))
-
 
 (provide 'conf-snippets)

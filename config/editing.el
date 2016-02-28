@@ -5,7 +5,6 @@
   :bind (("C-<backspace>" . goto-last-change)
          ("C-S-<backspace>" . goto-last-change-reverse)))
 
-
 (bind-keys*
  ("M-<left>" . mb/start-of-line)
  ("M-<right>" . mb/end-of-line)
@@ -17,6 +16,7 @@
  ("M-<return>" . mb/open-line)
  ("S-<return>" . mb/open-line-above)
  ("A-SPC" . rectangle-mark-mode)
+ ;; ("C-m" . mb/push-mark)
  ("A-n" . next-error)
  ("A-p" . previous-error)
  ("M-X" . exchange-point-and-mark)
@@ -24,6 +24,7 @@
  ("M-c" . mb/copy-line-or-region)
  ("M-O" . ido-find-file)
  ("M-v" . yank)
+ ("C-o" . pop-global-mark)
  ("M-x" . mb/cut-line-or-region)
  ("M-i" . mb/toolbox)
  ("M-z" . undo-only)
@@ -101,6 +102,10 @@
 
 ;; commands
 
+(defun mb/push-mark-command ()
+  (interactive)
+  (push-mark-command))
+
 (defun mb/quit ()
   (interactive)
   (if (window-minibuffer-p)
@@ -177,7 +182,7 @@
           (goto-char end)
           (insert (buffer-substring start end)))
 
-      ; no region, dupe line
+                                        ; no region, dupe line
       (let ((line (buffer-substring (point-at-bol)
                                     (point-at-eol))))
         (end-of-line)

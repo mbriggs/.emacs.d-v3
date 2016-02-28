@@ -10,6 +10,7 @@
   version-control t
   auto-save-default nil
   inhibit-startup-message t
+  minibuffer-message-timeout 0.8
   fill-column 85
   initial-major-mode 'emacs-lisp-mode
   browse-url-generic-program "google-chrome"

@@ -30,7 +30,7 @@
 (use-package multiple-cursors
   :ensure t
   :bind (("M-'" . mc/mark-next-like-this-word)
-         ("M-\"" . mc/skip-to-next-like-thi))
+         ("M-\"" . mc/skip-to-next-like-this))
   :init
   (require 'multiple-cursors)
   (bind-keys :map rectangle-mark-mode-map

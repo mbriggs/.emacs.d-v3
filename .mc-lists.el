@@ -8,6 +8,7 @@
         mb/end-of-line
         mb/forward-word
         mb/fuse-line
+        mb/quit
         mb/start-of-line
         mc/skip-to-next-like-thi
         reindent-then-newline-and-indent
