@@ -25,6 +25,11 @@
   dabbrev-case-replace nil
   recentf-exclude '("/tmp/" "/ssh:"))
 
+(use-package org-mode
+             :config
+             (bind-keys :map org-mode-map
+                        ("M-t" org-todo)))
+
 (defun my-minibuffer-setup-hook ()
   (setq gc-cons-threshold most-positive-fixnum))
 

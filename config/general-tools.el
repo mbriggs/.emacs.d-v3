@@ -6,6 +6,7 @@
 (use-package esup :ensure t)
 (use-package define-word :ensure t)
 
+
 (use-package swiper
   :quelpa (swiper
            :fetcher github

@@ -33,6 +33,7 @@
                         "Good programmers don't just write programs. They build a working vocabulary. - Guy Steele"
                         "Machines should work. People should think. - IBM Pollyanna Principle"
                         "Good software, like wine, takes time. - Joel Spolsky"
+                        "Without great solitude no serious work is possible - Pablo Picasso"
                         "No code is faster than no code. - Merb Motto"
                         "Anything that can possibly go wrong, will go wrong. - Murphy's Law"
                         "It always takes longer than you expect, even when you take into account Hofstadter's Law. — Hofstadter's Law"

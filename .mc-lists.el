@@ -3,7 +3,9 @@
 
 (setq mc/cmds-to-run-for-all
       '(
+        electric-newline-and-maybe-indent
         ivy-alt-done
+        mb/backward-delete-word
         mb/backwards-word
         mb/end-of-line
         mb/forward-word
@@ -13,10 +15,12 @@
         mc/skip-to-next-like-thi
         reindent-then-newline-and-indent
         sp-kill-sexp
+        sp-splice-sexp
         undo-only
         ))
 
 (setq mc/cmds-to-run-once
       '(
         keyboard-escape-quit
+        mac-mwheel-scroll
         ))
