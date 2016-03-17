@@ -61,6 +61,8 @@
            ("M-f" . isearch-repeat-forward)
            ("M-F" . isearch-repeat-backward))
 
+(define-key query-replace-map "a" 'automatic)
+
 ;; utils
 
 (defun mb/scroll-down-line ()
@@ -147,7 +149,7 @@
 
 
 (defun mb/backwards-word ()
-  (interactive)
+  (interactive "^")
   (let ((end-of-previous-word (mb/end-of-previous-word)))
     (cond
      ((eq (mb/pos-bol) (point))
@@ -163,7 +165,7 @@
       (goto-char end-of-previous-word)))))
 
 (defun mb/forward-word ()
-  (interactive)
+  (interactive "^")
   (let ((start-of-next-word (mb/start-of-next-word)))
     (cond
      ((eq (mb/pos-eol) (point))

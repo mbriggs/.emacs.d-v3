@@ -5,7 +5,14 @@
 (use-package paradox :ensure t)
 (use-package esup :ensure t)
 (use-package define-word :ensure t)
+(use-package help+ :ensure t)
+(use-package help-fns+ :ensure t)
+(use-package help-mode+ :ensure t)
 
+(use-package jump-char
+  :ensure t
+  :bind (("M-g" . jump-char-forward)
+         ("M-G" . jump-char-backward)))
 
 (use-package swiper
   :quelpa (swiper

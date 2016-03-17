@@ -1,5 +1,42 @@
+`
 (use-package dash :ensure t :init (dash-enable-font-lock))
 (use-package s :ensure t)
+
+(defvar *pivotal-project* "1481860")
+
+(defun pivotal-api (url method callback &optional xml-data)
+  (let ((url-request-method method)
+        (url-request-data xml-data)
+        (url-request-extra-headers `(("X-TrackerToken" . ,tracker-token)
+                                     ("Content-Type" . "application/xml"))))
+    (url-retrieve url callback)))
+
+(defun pivotal-url (&rest parts-of-url)
+  (let ((path (s-join "/" parts-of-url)))
+    (concat "https://www.pivotaltracker.com/services/v3" path)))
+
+(defun pivotal-get-iteration ()
+  (interactive)
+  (pivotal-api (pivotal-url "projects" *pivotal-project* "iterations/current")
+               "GET"
+               'pivotal-iteration-callback))
+
+(defun pivotal-iteration-callback (status)
+  (let ((xml (pivotal-get-xml-from-current-buffer)))
+    (with-current-buffer (get-buffer-create "*pivotal-iteration*")
+      (delete-region (point-min) (point-max))
+      (switch-to-buffer (current-buffer))
+      (if (eq 'nil-classes (caar xml))
+          (insert "No stories in this iteration yet")
+        (message (caar xml))))))
+
+
+(defun pivotal-get-xml-from-current-buffer ()
+  (let ((xml (if (functionp 'xml-parse-fragment)
+                 (cdr (xml-parse-fragment))
+               (xml-parse-region))))
+    (kill-buffer)
+    xml))
 
 (defun split-window-right-and-move-there ()
   (interactive)

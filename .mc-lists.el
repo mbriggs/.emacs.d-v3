@@ -7,6 +7,7 @@
         ivy-alt-done
         mb/backward-delete-word
         mb/backwards-word
+        mb/delete-whole-line
         mb/end-of-line
         mb/forward-word
         mb/fuse-line
@@ -14,6 +15,7 @@
         mb/start-of-line
         mc/skip-to-next-like-thi
         reindent-then-newline-and-indent
+        sp-forward-slurp-sexp
         sp-kill-sexp
         sp-splice-sexp
         undo-only
@@ -23,4 +25,5 @@
       '(
         keyboard-escape-quit
         mac-mwheel-scroll
+        markdown-exdent-or-delete
         ))

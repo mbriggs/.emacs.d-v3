@@ -36,13 +36,4 @@
              ("M-t a" . rspec-verify-all))
   (ad-activate 'rspec-compile))
 
-(use-package robe
-  :ensure t
-  :init
-  (add-hook 'ruby-mode-hook 'robe-mode)
-  (add-hook 'robe-mode-hook 'eldoc-mode)
-
-  :config
-  (push 'company-robe company-backends))
-
 (provide 'conf-ruby)

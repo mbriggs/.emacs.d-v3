@@ -1,4 +1,4 @@
-(defvar my-shells '("*main-shell*" "*alt-shell*" "*remote-shell*"))
+(defvar my-shells '("*main-shell*" "*alt-shell*"))
 (require 'shell)
 
 (setenv "PAGER" "cat")
@@ -69,9 +69,8 @@ the line, to capture multiline input. (This only has effect if
 ;; for other code, e.g. emacsclient in TRAMP ssh shells and automatically
 ;; closing completions buffers, see the links above.
 
-;; load shells
-(mapc 'shell (reverse my-shells))
-
-(switch-to-buffer "*scratch*")
+(defun mb/load-shells ()
+  (interactive)
+  (mapc 'shell (reverse my-shells)))
 
 (provide 'conf-shell)
