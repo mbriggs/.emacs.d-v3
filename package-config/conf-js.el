@@ -1,5 +1,3 @@
-(require 'conf-company)
-
 (use-package json-mode :ensure t)
 (use-package json-snatcher :ensure t)
 (use-package js-doc :ensure t)

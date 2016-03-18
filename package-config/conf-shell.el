@@ -63,8 +63,6 @@ the line, to capture multiline input. (This only has effect if
 
  (setq comint-get-old-input (lambda () "")) ; what to run when i press enter on a
                                             ; line above the current prompt
-(add-hook 'shell-mode-hook #'company-mode)
-(define-key shell-mode-map (kbd "TAB") #'company-manual-begin)
 
 ;; for other code, e.g. emacsclient in TRAMP ssh shells and automatically
 ;; closing completions buffers, see the links above.

@@ -1,5 +1,3 @@
-(require 'conf-company)
-
 (use-package inf-ruby :ensure t)
 (use-package bundler :ensure t)
 (use-package rubocop :ensure t)

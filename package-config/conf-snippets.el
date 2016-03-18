@@ -8,6 +8,32 @@
   (setq yas-snippet-dirs '("~/.emacs.d/snippets"))
   (yas-reload-all)
 
+  (defun do-yas-expand ()
+    (let ((yas/fallback-behavior 'return-nil))
+      (yas/expand)))
+
+  (defun mb/handle-tab ()
+    (interactive)
+    (cond
+     ((minibufferp)
+      (minibuffer-complete))
+     ((string= mode-name "Magit")
+      (magit-section-toggle (magit-current-section)))
+     ((string= mode-name "Shell")
+      (company-manual-begin))
+     (t
+      (indent-for-tab-command)
+      (if (or (not yas/minor-mode)
+              (null (do-yas-expand)))
+          (auto-complete)))))
+
+  (define-key yas-minor-mode-map [tab] nil)
+  (define-key yas-minor-mode-map (kbd "TAB") nil)
+
+  (define-key yas-keymap [tab] 'mb/handle-tab)
+  (define-key yas-keymap (kbd "TAB") 'mb/handle-tab)
+  (bind-key* "TAB" 'mb/handle-tab)
+
   ; hax for multiline mirrors
   (defun yas--mirror-update-display (mirror field)
     "Update MIRROR according to FIELD (and mirror transform)."

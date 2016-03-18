@@ -65,7 +65,7 @@
                    editing
                    langs
 
-                   conf-company
+                   conf-ac
                    conf-erc
                    conf-snippets
                    conf-git
