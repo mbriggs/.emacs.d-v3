@@ -25,6 +25,13 @@
  '(neo-vc-integration (quote (face)))
  '(paradox-automatically-star t)
  '(protect-buffer-bury-p nil)
+ '(safe-local-variable-values
+   (quote
+    ((eval add-hook
+           (quote after-save-hook)
+           (lambda nil
+             (org-babel-tangle))
+           nil t))))
  '(tramp-default-method "ssh"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
