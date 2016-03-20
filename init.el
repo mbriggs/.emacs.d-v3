@@ -68,6 +68,7 @@
                    conf-ac
                    conf-erc
                    conf-snippets
+                   conf-org
                    conf-git
                    conf-parens
                    conf-markdown
