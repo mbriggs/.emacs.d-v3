@@ -17,8 +17,6 @@
 (setenv "PATH" (concat (getenv "HOME") "/.rbenv/shims:" (getenv "HOME") "/.rbenv/bin:" (getenv "PATH")))
 (setq exec-path (cons (concat (getenv "HOME") "/.rbenv/shims") (cons (concat (getenv "HOME") "/.rbenv/bin") exec-path)))
 
-;; bootstrap quelpa, set up quelpa handler for use package
-
 (require 'package)
 (add-to-list 'package-archives
              '("melpa" . "https://melpa.org/packages/"))
@@ -26,29 +24,10 @@
   (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
 (package-initialize)
 
-(when (not (require 'quelpa nil t))
-  (with-temp-buffer
-    (url-insert-file-contents "https://raw.github.com/quelpa/quelpa/master/bootstrap.el")
-    (eval-buffer)))
-
-(quelpa
- '(quelpa-use-package
-   :fetcher github
-   :repo "quelpa/quelpa-use-package"))
-(require 'quelpa-use-package)
-
 (setq mac-option-key-is-meta nil)
 (setq mac-command-key-is-meta t)
 (setq mac-command-modifier 'meta)
 (setq mac-option-modifier 'alt)
-
-(use-package exec-path-from-shell
-  :ensure t
-  :init
-  (setq exec-path-from-shell-check-startup-files nil)
-  (require 'exec-path-from-shell)
-  :config
-  (exec-path-from-shell-initialize))
 
 (let ((secret-path (expand-file-name "~/Dropbox/secrets.el")))
   (when (file-exists-p secret-path)
@@ -419,9 +398,7 @@
          ("M-G" . jump-char-backward)))
 
 (use-package swiper
-  :quelpa (swiper
-           :fetcher github
-           :repo "abo-abo/swiper")
+  :ensure t
   :commands (counsel-M-x swiper)
   :bind* (("M-A" . counsel-M-x)
           ("M-f" . swiper))
@@ -447,15 +424,8 @@
   :bind (("C-o" . goto-last-change)
          ("C-O" . goto-last-change-reverse)))
 
-(use-package inf-mongo
-  :quelpa (inf-mongo
-           :fetcher github
-           :repo "tobiassvn/inf-mongo"))
-
-(use-package discover-my-major
-  :quelpa (discover-my-major
-           :fetcher github
-           :repo "steckerhalter/discover-my-major"))
+(use-package inf-mongo :ensure t)
+(use-package discover-my-major :ensure t)
 
 (use-package expand-region
   :ensure t
@@ -560,11 +530,6 @@
 
 (use-package coffee-mode :ensure t)
 (use-package yaml-mode :ensure t)
-
-
-(use-package go-mode
-  :quelpa (go-mode :fetcher github
-                   :repo "dominikh/go-mode.el"))
 
 (use-package sass-mode
              :ensure t
@@ -733,7 +698,6 @@
 (use-package gh :ensure t)
 
 (use-package open-github-from-here
-  :quelpa (open-github-from-here :fetcher github :repo "mbriggs/emacs-open-github-from-here")
   :commands open-github-from-here
   :init
   (setq open-github-from-here:command (expand-file-name "~/.emacs.d/make-github-url-from-file")))

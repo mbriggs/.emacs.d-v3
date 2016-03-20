@@ -3,7 +3,7 @@
 #+TITLE: Matt Briggs - Emacs Configs
 #+OPTIONS: toc:4 h:4
 
-* diable gc
+* disable gc
 turn off the gc during the init process. This will result in a mega-gc at the end,
 but that is better then multiple small ones during the loading process
 
@@ -37,25 +37,12 @@ I know this adds to load time, but its a price I am willing to pay to just assum
 #+end_src
 ** Package
 #+begin_src emacs-lisp :tangle yes
-;; bootstrap quelpa, set up quelpa handler for use package
-
 (require 'package)
 (add-to-list 'package-archives
              '("melpa" . "https://melpa.org/packages/"))
 (when (< emacs-major-version 24)
   (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
 (package-initialize)
-
-(when (not (require 'quelpa nil t))
-  (with-temp-buffer
-    (url-insert-file-contents "https://raw.github.com/quelpa/quelpa/master/bootstrap.el")
-    (eval-buffer)))
-
-(quelpa
- '(quelpa-use-package
-   :fetcher github
-   :repo "quelpa/quelpa-use-package"))
-(require 'quelpa-use-package)
 #+end_src
 ** OSX
 #+begin_src emacs-lisp :tangle yes
@@ -63,16 +50,6 @@ I know this adds to load time, but its a price I am willing to pay to just assum
 (setq mac-command-key-is-meta t)
 (setq mac-command-modifier 'meta)
 (setq mac-option-modifier 'alt)
-#+end_src
-** exec-path-from-shell
-#+begin_src emacs-lisp :tangle yes
-(use-package exec-path-from-shell
-  :ensure t
-  :init
-  (setq exec-path-from-shell-check-startup-files nil)
-  (require 'exec-path-from-shell)
-  :config
-  (exec-path-from-shell-initialize))
 #+end_src
 ** secrets
 #+begin_src emacs-lisp :tangle yes
@@ -457,9 +434,7 @@ I know this adds to load time, but its a price I am willing to pay to just assum
          ("M-G" . jump-char-backward)))
 
 (use-package swiper
-  :quelpa (swiper
-           :fetcher github
-           :repo "abo-abo/swiper")
+  :ensure t
   :commands (counsel-M-x swiper)
   :bind* (("M-A" . counsel-M-x)
           ("M-f" . swiper))
@@ -485,15 +460,8 @@ I know this adds to load time, but its a price I am willing to pay to just assum
   :bind (("C-o" . goto-last-change)
          ("C-O" . goto-last-change-reverse)))
 
-(use-package inf-mongo
-  :quelpa (inf-mongo
-           :fetcher github
-           :repo "tobiassvn/inf-mongo"))
-
-(use-package discover-my-major
-  :quelpa (discover-my-major
-           :fetcher github
-           :repo "steckerhalter/discover-my-major"))
+(use-package inf-mongo :ensure t)
+(use-package discover-my-major :ensure t)
 
 (use-package expand-region
   :ensure t
@@ -602,11 +570,6 @@ I know this adds to load time, but its a price I am willing to pay to just assum
 #+begin_src emacs-lisp :tangle yes
 (use-package coffee-mode :ensure t)
 (use-package yaml-mode :ensure t)
-
-
-(use-package go-mode
-  :quelpa (go-mode :fetcher github
-                   :repo "dominikh/go-mode.el"))
 
 (use-package sass-mode
              :ensure t
@@ -784,7 +747,6 @@ I know this adds to load time, but its a price I am willing to pay to just assum
 (use-package gh :ensure t)
 
 (use-package open-github-from-here
-  :quelpa (open-github-from-here :fetcher github :repo "mbriggs/emacs-open-github-from-here")
   :commands open-github-from-here
   :init
   (setq open-github-from-here:command (expand-file-name "~/.emacs.d/make-github-url-from-file")))
