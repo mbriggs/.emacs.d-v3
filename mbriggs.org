@@ -65,31 +65,65 @@
      -Steve Yegge
      #+END_QUOTE
 
-* Philosophy
+** Philosophy
 
 This is my third emacs reset. I love emacs, but I dont really like
 the default editing experience. I was previously an evil user, but
 after some thought, I decided to implement something inspired by
 the IntelliJ editing experience.
 
+** why IntelliJ?
+
+Something I really like about IntelliJ is that you dont really have
+to think too much when editing code. There are a few different ideas,
+applied coheasively and consistently to allow for very powerful operations
+to occur quite easily. Vim / Emacs allow for much more precise editing,
+but I almost never want that -- I want quick and brainless.
+
+** implementation
+
+all editing commands are implemented in [[./lisp/mb-editing.el][editing.el]]. I lean very heavily on
+expand-region as well as avy (these being in [[General Tools]]). ivy is my narrowing
+framework of choice, and I just switched back to auto-complete after using company
+for awhile and not being as happy with it.
+
+I am a huge fan of use-package, and am trying to get load times down using an init
+profiler (can run with =make emacs=).
+
 * Configuration
+
+Configuration lives in the same org file as this documentation. Code blocks are extracted
+on save, to avoid a startup time penalty.
+
 ** disable gc
+
 turn off the gc during the init process. This will result in a mega-gc at the end,
 but that is better then multiple small ones during the loading process
 
-This sexp wraps the entire init file, the closing bracket is in the =enable gc= section
+This sexp wraps the entire init file, the closing bracket is in the [[enable gc]] section
+
 #+begin_src emacs-lisp :tangle yes
 (let ((gc-cons-threshold most-positive-fixnum))
 #+end_src
 ** Setup
+
+This is some super early environmental setup.
+
 *** common-lisp
-I know this adds to load time, but its a price I am willing to pay to just assume cl is part of the language
+
+I know RMS thinks its ugly, I disagree
+
 #+begin_src emacs-lisp :tangle yes
 (require 'cl-lib)
 #+end_src
 *** Paths
+
+Set up paths early. I like to have executable scripts in a directory
+in my home folder, so make sure those are execable.
+
 #+begin_src emacs-lisp :tangle yes
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp"))
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/site-lisp"))
 
 (push "/usr/local/bin" exec-path)
 (push "/usr/bin" exec-path)
@@ -97,6 +131,9 @@ I know this adds to load time, but its a price I am willing to pay to just assum
 (push (expand-file-name "~/scripts") exec-path)
 #+end_src
 *** ENV
+
+support rbenv
+
 #+begin_src emacs-lisp :tangle yes
 (setenv "PATH" (concat "/usr/local/bin:" (expand-file-name "~/scripts") ":" (getenv "PATH")))
 (setenv "PAGER" "emacsclient")
@@ -106,6 +143,9 @@ I know this adds to load time, but its a price I am willing to pay to just assum
 (setq exec-path (cons (concat (getenv "HOME") "/.rbenv/shims") (cons (concat (getenv "HOME") "/.rbenv/bin") exec-path)))
 #+end_src
 *** Package
+
+ELPA and MELPA. all package management is done with use-package
+
 #+begin_src emacs-lisp :tangle yes
 (require 'package)
 (add-to-list 'package-archives
@@ -115,6 +155,9 @@ I know this adds to load time, but its a price I am willing to pay to just assum
 (package-initialize)
 #+end_src
 *** OSX
+
+I like cmd to be meta, and option to be alt
+
 #+begin_src emacs-lisp :tangle yes
 (setq mac-option-key-is-meta nil)
 (setq mac-command-key-is-meta t)
@@ -122,13 +165,23 @@ I know this adds to load time, but its a price I am willing to pay to just assum
 (setq mac-option-modifier 'alt)
 #+end_src
 *** secrets
+
+Load some keys and whatnot
+
 #+begin_src emacs-lisp :tangle yes
 (let ((secret-path (expand-file-name "~/Dropbox/secrets.el")))
   (when (file-exists-p secret-path)
     (load-file secret-path)))
 #+end_src
 ** Settings
+
+Configure internal emacs settings. There is a fine line between whats here and package
+configuration, but ¯\_(ツ)_/¯.
+
 *** Variables
+
+configure emacs
+
 #+begin_src emacs-lisp :tangle yes
 (setq
   ns-use-srgb-colorspace t
@@ -191,6 +244,10 @@ I know this adds to load time, but its a price I am willing to pay to just assum
 (add-hook 'focus-out-hook 'save-all)
 #+end_src
 *** Appearance
+
+configure emacs appearance. one key thing here that is used in the
+rest of this file is the =with-theme-colors= macro.
+
 #+begin_src emacs-lisp :tangle yes
 (use-package ample-theme
   :ensure t
@@ -352,6 +409,9 @@ I know this adds to load time, but its a price I am willing to pay to just assum
                          `(column-enforce-face ((t (:underline ,darker-gray))))))
 #+end_src
 *** Modeline
+
+I wrote all this from scratch, but still barely understand how it works.
+
 #+begin_src emacs-lisp :tangle yes
 (setq-default mode-line-format
               '(
@@ -478,6 +538,13 @@ I know this adds to load time, but its a price I am willing to pay to just assum
                      :background yellow))
 #+end_src
 ** LISP
+
+- mb-editing: implement an editing experience I prefer to the default emacs one
+- mb-start-message: have a code related fortune in the scratch buffer on startup
+- mb-toolbox: curated M-x
+- mb-defuns: junk drawer of functions yet to be extracted into something more
+  coheasive.
+
 #+begin_src emacs-lisp :tangle yes
 (require 'mb-editing)
 (require 'mb-start-message)

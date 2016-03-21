@@ -4,6 +4,7 @@
 (require 'cl-lib)
 
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp"))
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/site-lisp"))
 
 (push "/usr/local/bin" exec-path)
 (push "/usr/bin" exec-path)
