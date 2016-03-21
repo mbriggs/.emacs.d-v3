@@ -391,28 +391,13 @@
 (use-package help+ :ensure t)
 (use-package help-fns+ :ensure t)
 (use-package help-mode+ :ensure t)
+(use-package inf-mongo :ensure t)
+(use-package discover-my-major :ensure t)
 
 (use-package jump-char
   :ensure t
   :bind (("M-g" . jump-char-forward)
          ("M-G" . jump-char-backward)))
-
-(use-package swiper
-  :ensure t
-  :commands (counsel-M-x swiper)
-  :bind* (("M-A" . counsel-M-x)
-          ("M-f" . swiper))
-  :init
-  (require 'ivy)
-  (ivy-mode 1)
-  (setq
-   ivy-use-virtual-buffers t
-   magit-completing-read-function 'ivy-completing-read)
-  (bind-keys :map ivy-mode-map
-             ("M-n" . ivy-next-line)
-             ("M-p" . ivy-previous-line))
-  (define-key ivy-minibuffer-map (kbd "<return>") 'ivy-alt-done))
-
 
 (use-package vkill
   :ensure t
@@ -424,9 +409,6 @@
   :bind (("C-o" . goto-last-change)
          ("C-O" . goto-last-change-reverse)))
 
-(use-package inf-mongo :ensure t)
-(use-package discover-my-major :ensure t)
-
 (use-package expand-region
   :ensure t
   :commands (er/expand-region er/contract-region)
@@ -434,10 +416,6 @@
           ("M-<down>" . er/contract-region))
   :init
   (require 'expand-region))
-
-;; (use-package smex
-;;   :ensure t
-;;   :bind* ("M-A" . smex))
 
 (use-package etags-select
   :ensure t
@@ -473,17 +451,6 @@
   :init
   (add-hook 'prog-mode-hook 'fic-mode))
 
-(use-package multiple-cursors
-  :ensure t
-  :bind (("M-'" . mc/mark-next-like-this-word)
-         ("M-\"" . mc/skip-to-next-like-this))
-  :init
-  (require 'multiple-cursors)
-  (bind-keys :map rectangle-mark-mode-map
-             ("A-SPC" . mc/edit-lines)
-             ("C-<left>" . mc/edit-beginnings-of-lines)
-             ("C-<right>" . mc/edit-ends-of-lines)))
-
 (use-package projectile
   :ensure t
   :init
@@ -496,24 +463,6 @@
   :commands avy-goto-word-1
   :bind* ("M-;" . avy-goto-word-1))
 
-
-(use-package flycheck
-  :ensure t
-  :init
-  (add-hook 'sh-mode-hook 'flycheck-mode)
-  (add-hook 'json-mode-hook 'flycheck-mode)
-  (add-hook 'nxml-mode-hook 'flycheck-mode)
-  (add-hook 'python-mode-hook 'flycheck-mode)
-  (add-hook 'emacs-lisp-mode-hook 'flycheck-mode)
-  (add-hook 'lisp-interaction-mode-hook 'flycheck-mode)
-  (add-hook 'js2-mode-hook 'flycheck-mode)
-  (add-hook 'ruby-mode-hook 'flycheck-mode)
-  (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
-  (setq flycheck-indication-mode nil)
-
-  :config
-  (flycheck-add-mode 'javascript-eslint 'babel-mode))
-
 (use-package volatile-highlights
   :ensure t
   :config
@@ -521,7 +470,6 @@
   (with-theme-colors
    (set-face-attribute 'vhl/default-face nil
                        :background darker-gray)))
-
 
 (use-package super-save
   :ensure t
@@ -721,6 +669,34 @@
   :init
   (add-hook 'magit-mode-hook 'turn-on-magit-gh-pulls))
 
+(use-package multiple-cursors
+  :ensure t
+  :bind (("M-'" . mc/mark-next-like-this-word)
+         ("M-\"" . mc/skip-to-next-like-this))
+  :init
+  (require 'multiple-cursors)
+  (bind-keys :map rectangle-mark-mode-map
+             ("A-SPC" . mc/edit-lines)
+             ("C-<left>" . mc/edit-beginnings-of-lines)
+             ("C-<right>" . mc/edit-ends-of-lines)))
+
+(use-package flycheck
+  :ensure t
+  :init
+  (add-hook 'sh-mode-hook 'flycheck-mode)
+  (add-hook 'json-mode-hook 'flycheck-mode)
+  (add-hook 'nxml-mode-hook 'flycheck-mode)
+  (add-hook 'python-mode-hook 'flycheck-mode)
+  (add-hook 'emacs-lisp-mode-hook 'flycheck-mode)
+  (add-hook 'lisp-interaction-mode-hook 'flycheck-mode)
+  (add-hook 'js2-mode-hook 'flycheck-mode)
+  (add-hook 'ruby-mode-hook 'flycheck-mode)
+  (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
+  (setq flycheck-indication-mode nil)
+
+  :config
+  (flycheck-add-mode 'javascript-eslint 'babel-mode))
+
 (defun wrap-round ()
   (interactive)
   (sp-wrap-with-pair "("))
@@ -752,6 +728,22 @@
              ("A-H" . sp-backward-slurp-sexp)
              ("A-h" . sp-forward-barf-sexp)
              ("A-l" . sp-forward-slurp-sexp)))
+
+(use-package swiper
+  :ensure t
+  :commands (counsel-M-x swiper)
+  :bind* (("M-A" . counsel-M-x)
+          ("M-f" . swiper))
+  :init
+  (require 'ivy)
+  (ivy-mode 1)
+  (setq
+   ivy-use-virtual-buffers t
+   magit-completing-read-function 'ivy-completing-read)
+  (bind-keys :map ivy-mode-map
+             ("M-n" . ivy-next-line)
+             ("M-p" . ivy-previous-line))
+  (define-key ivy-minibuffer-map (kbd "<return>") 'ivy-alt-done))
 
 (use-package markdown-mode
              :ensure t

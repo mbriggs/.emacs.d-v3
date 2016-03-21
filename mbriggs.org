@@ -1,9 +1,79 @@
 # -*- mode: org -*-
 # -*- coding: utf-8 -*-
-#+TITLE: Matt Briggs - Emacs Configs
-#+OPTIONS: toc:4 h:4
+* Emacs
+#+begin_src :tangle no
+      ___           ___           ___           ___           ___
+     /\  \         /\__\         /\  \         /\  \         /\  \
+    /::\  \       /::|  |       /::\  \       /::\  \       /::\  \
+   /:/\:\  \     /:|:|  |      /:/\:\  \     /:/\:\  \     /:/\ \  \
+  /::\~\:\  \   /:/|:|__|__   /::\~\:\  \   /:/  \:\  \   _\:\~\ \  \
+ /:/\:\ \:\__\ /:/ |::::\__\ /:/\:\ \:\__\ /:/__/ \:\__\ /\ \:\ \ \__\
+ \:\~\:\ \/__/ \/__/~~/:/  / \/__\:\/:/  / \:\  \  \/__/ \:\ \:\ \/__/
+  \:\ \:\__\         /:/  /       \::/  /   \:\  \        \:\ \:\__\
+   \:\ \/__/        /:/  /        /:/  /     \:\  \        \:\/:/  /
+    \:\__\         /:/  /        /:/  /       \:\__\        \::/  /
+     \/__/         \/__/         \/__/         \/__/         \/__/
 
-* disable gc
+#+end_src
+
+     #+BEGIN_QUOTE
+     "Emacs outshines all other editing software in approximately
+     the same way that the noonday sun does the stars. It is not
+     just bigger and brighter; it simply makes everything else
+     vanish."
+     -Neal Stephenson, "In the Beginning was the Command Line"
+     #+END_QUOTE
+
+     #+BEGIN_QUOTE
+     "Show me your ~/.emacs and I will tell you who you are."
+     -Bogdan Maryniuk
+     #+END_QUOTE
+
+     #+BEGIN_QUOTE
+     "Emacs is like a laser guided missile. It only has to be
+     slightly mis-configured to ruin your whole day."
+     -Sean McGrathi
+     #+END_QUOTE
+
+     #+BEGIN_QUOTE
+     "While any text editor can save your files, only Emacs can
+     save your soul."
+     -Per Abrahamseni
+     #+END_QUOTE
+
+     #+BEGIN_QUOTE
+     "Lisp isn't a language, it's a building material."
+     -Alan Kay
+     #+END_QUOTE
+
+     #+BEGIN_QUOTE
+     "The reasonable man adapts himself to Emacs; the
+     unreasonable one persists in trying to adapt Emacs to
+     himself. Therefore all progress depends on the unreasonable
+     man."
+     -G.B. Shaw
+     #+END_QUOTE
+
+     #+BEGIN_QUOTE
+     "Compared to Emacs Wizards, graphical-IDE users are the
+     equivalent of amateur musicians, pawing at their instrument
+     with a sort of desperation. An IDE has blinking lights and
+     pretty dialogs that you can't interact with properly, and
+     gives newbies a nice comfortable sense of control. But that
+     control is extremely crude, and all serious programmers
+     prefer something that gives them more power."
+     -Steve Yegge
+     #+END_QUOTE
+
+* Philosophy
+
+This is my third emacs reset. I love emacs, but I dont really like
+the default editing experience. I was previously an evil user, but
+after some thought, I decided to implement something inspired by
+the IntelliJ editing experience.
+
+* Configuration
+** disable gc
 turn off the gc during the init process. This will result in a mega-gc at the end,
 but that is better then multiple small ones during the loading process
 
@@ -11,13 +81,13 @@ This sexp wraps the entire init file, the closing bracket is in the =enable gc= 
 #+begin_src emacs-lisp :tangle yes
 (let ((gc-cons-threshold most-positive-fixnum))
 #+end_src
-* Setup
-** common-lisp
+** Setup
+*** common-lisp
 I know this adds to load time, but its a price I am willing to pay to just assume cl is part of the language
 #+begin_src emacs-lisp :tangle yes
 (require 'cl-lib)
 #+end_src
-** Paths
+*** Paths
 #+begin_src emacs-lisp :tangle yes
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp"))
 
@@ -26,7 +96,7 @@ I know this adds to load time, but its a price I am willing to pay to just assum
 (push "/usr/local/share/npm/bin" exec-path)
 (push (expand-file-name "~/scripts") exec-path)
 #+end_src
-** ENV
+*** ENV
 #+begin_src emacs-lisp :tangle yes
 (setenv "PATH" (concat "/usr/local/bin:" (expand-file-name "~/scripts") ":" (getenv "PATH")))
 (setenv "PAGER" "emacsclient")
@@ -35,7 +105,7 @@ I know this adds to load time, but its a price I am willing to pay to just assum
 (setenv "PATH" (concat (getenv "HOME") "/.rbenv/shims:" (getenv "HOME") "/.rbenv/bin:" (getenv "PATH")))
 (setq exec-path (cons (concat (getenv "HOME") "/.rbenv/shims") (cons (concat (getenv "HOME") "/.rbenv/bin") exec-path)))
 #+end_src
-** Package
+*** Package
 #+begin_src emacs-lisp :tangle yes
 (require 'package)
 (add-to-list 'package-archives
@@ -44,21 +114,21 @@ I know this adds to load time, but its a price I am willing to pay to just assum
   (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
 (package-initialize)
 #+end_src
-** OSX
+*** OSX
 #+begin_src emacs-lisp :tangle yes
 (setq mac-option-key-is-meta nil)
 (setq mac-command-key-is-meta t)
 (setq mac-command-modifier 'meta)
 (setq mac-option-modifier 'alt)
 #+end_src
-** secrets
+*** secrets
 #+begin_src emacs-lisp :tangle yes
 (let ((secret-path (expand-file-name "~/Dropbox/secrets.el")))
   (when (file-exists-p secret-path)
     (load-file secret-path)))
 #+end_src
-* Settings
-** Variables
+** Settings
+*** Variables
 #+begin_src emacs-lisp :tangle yes
 (setq
   ns-use-srgb-colorspace t
@@ -120,7 +190,7 @@ I know this adds to load time, but its a price I am willing to pay to just assum
   (save-some-buffers t))
 (add-hook 'focus-out-hook 'save-all)
 #+end_src
-** Appearance
+*** Appearance
 #+begin_src emacs-lisp :tangle yes
 (use-package ample-theme
   :ensure t
@@ -281,7 +351,7 @@ I know this adds to load time, but its a price I am willing to pay to just assum
                          `(sm-pair-overlay-face ((t (:background "grey13"))))
                          `(column-enforce-face ((t (:underline ,darker-gray))))))
 #+end_src
-** Modeline
+*** Modeline
 #+begin_src emacs-lisp :tangle yes
 (setq-default mode-line-format
               '(
@@ -407,15 +477,15 @@ I know this adds to load time, but its a price I am willing to pay to just assum
                      :foreground bg
                      :background yellow))
 #+end_src
-* LISP
+** LISP
 #+begin_src emacs-lisp :tangle yes
 (require 'mb-editing)
 (require 'mb-start-message)
 (require 'mb-toolbox)
 (require 'mb-defuns)
 #+end_src
-* Packages
-** General Tools
+** Packages
+*** General Tools
 #+begin_src emacs-lisp :tangle yes
 (use-package helm :ensure t)
 (use-package imenu-anywhere :ensure t)
@@ -427,28 +497,13 @@ I know this adds to load time, but its a price I am willing to pay to just assum
 (use-package help+ :ensure t)
 (use-package help-fns+ :ensure t)
 (use-package help-mode+ :ensure t)
+(use-package inf-mongo :ensure t)
+(use-package discover-my-major :ensure t)
 
 (use-package jump-char
   :ensure t
   :bind (("M-g" . jump-char-forward)
          ("M-G" . jump-char-backward)))
-
-(use-package swiper
-  :ensure t
-  :commands (counsel-M-x swiper)
-  :bind* (("M-A" . counsel-M-x)
-          ("M-f" . swiper))
-  :init
-  (require 'ivy)
-  (ivy-mode 1)
-  (setq
-   ivy-use-virtual-buffers t
-   magit-completing-read-function 'ivy-completing-read)
-  (bind-keys :map ivy-mode-map
-             ("M-n" . ivy-next-line)
-             ("M-p" . ivy-previous-line))
-  (define-key ivy-minibuffer-map (kbd "<return>") 'ivy-alt-done))
-
 
 (use-package vkill
   :ensure t
@@ -460,9 +515,6 @@ I know this adds to load time, but its a price I am willing to pay to just assum
   :bind (("C-o" . goto-last-change)
          ("C-O" . goto-last-change-reverse)))
 
-(use-package inf-mongo :ensure t)
-(use-package discover-my-major :ensure t)
-
 (use-package expand-region
   :ensure t
   :commands (er/expand-region er/contract-region)
@@ -470,10 +522,6 @@ I know this adds to load time, but its a price I am willing to pay to just assum
           ("M-<down>" . er/contract-region))
   :init
   (require 'expand-region))
-
-;; (use-package smex
-;;   :ensure t
-;;   :bind* ("M-A" . smex))
 
 (use-package etags-select
   :ensure t
@@ -483,7 +531,7 @@ I know this adds to load time, but its a price I am willing to pay to just assum
   :ensure t
   :bind* ("M-r" . anzu-query-replace-regexp))
 #+end_src
-** Global Modes
+*** Global Modes
 #+begin_src emacs-lisp :tangle yes
 (use-package page-break-lines
   :ensure t
@@ -511,17 +559,6 @@ I know this adds to load time, but its a price I am willing to pay to just assum
   :init
   (add-hook 'prog-mode-hook 'fic-mode))
 
-(use-package multiple-cursors
-  :ensure t
-  :bind (("M-'" . mc/mark-next-like-this-word)
-         ("M-\"" . mc/skip-to-next-like-this))
-  :init
-  (require 'multiple-cursors)
-  (bind-keys :map rectangle-mark-mode-map
-             ("A-SPC" . mc/edit-lines)
-             ("C-<left>" . mc/edit-beginnings-of-lines)
-             ("C-<right>" . mc/edit-ends-of-lines)))
-
 (use-package projectile
   :ensure t
   :init
@@ -534,24 +571,6 @@ I know this adds to load time, but its a price I am willing to pay to just assum
   :commands avy-goto-word-1
   :bind* ("M-;" . avy-goto-word-1))
 
-
-(use-package flycheck
-  :ensure t
-  :init
-  (add-hook 'sh-mode-hook 'flycheck-mode)
-  (add-hook 'json-mode-hook 'flycheck-mode)
-  (add-hook 'nxml-mode-hook 'flycheck-mode)
-  (add-hook 'python-mode-hook 'flycheck-mode)
-  (add-hook 'emacs-lisp-mode-hook 'flycheck-mode)
-  (add-hook 'lisp-interaction-mode-hook 'flycheck-mode)
-  (add-hook 'js2-mode-hook 'flycheck-mode)
-  (add-hook 'ruby-mode-hook 'flycheck-mode)
-  (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
-  (setq flycheck-indication-mode nil)
-
-  :config
-  (flycheck-add-mode 'javascript-eslint 'babel-mode))
-
 (use-package volatile-highlights
   :ensure t
   :config
@@ -560,13 +579,12 @@ I know this adds to load time, but its a price I am willing to pay to just assum
    (set-face-attribute 'vhl/default-face nil
                        :background darker-gray)))
 
-
 (use-package super-save
   :ensure t
   :init
   (super-save-mode +1))
 #+end_src
-** Languages
+*** Languages
 #+begin_src emacs-lisp :tangle yes
 (use-package coffee-mode :ensure t)
 (use-package yaml-mode :ensure t)
@@ -583,7 +601,7 @@ I know this adds to load time, but its a price I am willing to pay to just assum
              :init
              (setq css-indent-offset 2))
 #+end_src
-** auto-complete
+*** auto-complete
 #+begin_src emacs-lisp :tangle yes
 (use-package auto-complete
   :ensure t
@@ -631,7 +649,7 @@ I know this adds to load time, but its a price I am willing to pay to just assum
 
   (setq dabbrev-friend-buffer-function 'sanityinc/dabbrev-friend-buffer))
 #+end_src
-** yasnippet
+*** yasnippet
 #+begin_src emacs-lisp :tangle yes
 (use-package yasnippet
   :ensure t
@@ -715,7 +733,7 @@ I know this adds to load time, but its a price I am willing to pay to just assum
 (defun mb/ruby-initialize-args (args)
   (string-join (--map (concat "@" it " = " it) (s-split ", " args)) "\n"))
 #+end_src
-** org
+*** org
 #+begin_src emacs-lisp :tangle yes
 (use-package org-mode
   :bind (("M-L" . org-store-link)
@@ -740,7 +758,7 @@ I know this adds to load time, but its a price I am willing to pay to just assum
                               (org-defkey org-mode-map [(tab)] nil))))
 
 #+end_src
-** magit
+*** magit
 #+begin_src emacs-lisp :tangle yes
 (use-package git-timemachine :ensure t)
 (use-package yagist :ensure t)
@@ -770,7 +788,39 @@ I know this adds to load time, but its a price I am willing to pay to just assum
   :init
   (add-hook 'magit-mode-hook 'turn-on-magit-gh-pulls))
 #+end_src
-** smartparens
+*** multiple-cursors
+#+begin_src emacs-lisp :tangle yes
+(use-package multiple-cursors
+  :ensure t
+  :bind (("M-'" . mc/mark-next-like-this-word)
+         ("M-\"" . mc/skip-to-next-like-this))
+  :init
+  (require 'multiple-cursors)
+  (bind-keys :map rectangle-mark-mode-map
+             ("A-SPC" . mc/edit-lines)
+             ("C-<left>" . mc/edit-beginnings-of-lines)
+             ("C-<right>" . mc/edit-ends-of-lines)))
+#+end_src
+*** flycheck
+#+begin_src emacs-lisp :tangle yes
+(use-package flycheck
+  :ensure t
+  :init
+  (add-hook 'sh-mode-hook 'flycheck-mode)
+  (add-hook 'json-mode-hook 'flycheck-mode)
+  (add-hook 'nxml-mode-hook 'flycheck-mode)
+  (add-hook 'python-mode-hook 'flycheck-mode)
+  (add-hook 'emacs-lisp-mode-hook 'flycheck-mode)
+  (add-hook 'lisp-interaction-mode-hook 'flycheck-mode)
+  (add-hook 'js2-mode-hook 'flycheck-mode)
+  (add-hook 'ruby-mode-hook 'flycheck-mode)
+  (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
+  (setq flycheck-indication-mode nil)
+
+  :config
+  (flycheck-add-mode 'javascript-eslint 'babel-mode))
+#+end_src
+*** smartparens
 #+begin_src emacs-lisp :tangle yes
 (defun wrap-round ()
   (interactive)
@@ -804,7 +854,25 @@ I know this adds to load time, but its a price I am willing to pay to just assum
              ("A-h" . sp-forward-barf-sexp)
              ("A-l" . sp-forward-slurp-sexp)))
 #+end_src
-** markdown
+*** swiper
+#+begin_src emacs-lisp :tangle yes
+(use-package swiper
+  :ensure t
+  :commands (counsel-M-x swiper)
+  :bind* (("M-A" . counsel-M-x)
+          ("M-f" . swiper))
+  :init
+  (require 'ivy)
+  (ivy-mode 1)
+  (setq
+   ivy-use-virtual-buffers t
+   magit-completing-read-function 'ivy-completing-read)
+  (bind-keys :map ivy-mode-map
+             ("M-n" . ivy-next-line)
+             ("M-p" . ivy-previous-line))
+  (define-key ivy-minibuffer-map (kbd "<return>") 'ivy-alt-done))
+#+end_src
+*** markdown
 #+begin_src emacs-lisp :tangle yes
 (use-package markdown-mode
              :ensure t
@@ -815,7 +883,7 @@ I know this adds to load time, but its a price I am willing to pay to just assum
              (add-to-list 'auto-mode-alist '("\\.md\\'" . gfm-mode))
              (add-to-list 'auto-mode-alist '("\\.text$" . gfm-mode)))
 #+end_src
-** butler
+*** butler
 #+begin_src emacs-lisp :tangle yes
 (use-package jenkins
   :ensure t
@@ -841,7 +909,7 @@ I know this adds to load time, but its a price I am willing to pay to just assum
     (with-current-buffer "*jenkins-status*"
                          (revert-buffer))))
 #+end_src
-** ruby
+*** ruby
 #+begin_src emacs-lisp :tangle yes
 (use-package inf-ruby :ensure t)
 (use-package bundler :ensure t)
@@ -879,7 +947,7 @@ I know this adds to load time, but its a price I am willing to pay to just assum
              ("M-t a" . rspec-verify-all))
   (ad-activate 'rspec-compile))
 #+end_src
-** elixir
+*** elixir
 #+begin_src emacs-lisp :tangle yes
 (use-package
   alchemist
@@ -902,7 +970,7 @@ I know this adds to load time, but its a price I am willing to pay to just assum
                                 :post-handlers '(:add my-elixir-do-end-close-action)
                                 :actions '(insert))))
 #+end_src
-** shell
+*** shell
 #+begin_src emacs-lisp :tangle yes
 (defvar my-shells '("*main-shell*" "*alt-shell*"))
 (require 'shell)
@@ -977,7 +1045,7 @@ the line, to capture multiline input. (This only has effect if
   (interactive)
   (mapc 'shell (reverse my-shells)))
 #+end_src
-** prodigy
+*** prodigy
 #+begin_src emacs-lisp :tangle yes
 (use-package
   prodigy
@@ -1045,7 +1113,7 @@ the line, to capture multiline input. (This only has effect if
     :ready-message "LabelBot Started"
     :cwd "~/label-bot"))
 #+end_src
-** web
+*** web
 #+begin_src emacs-lisp :tangle yes
 (use-package web-mode
              :ensure t
@@ -1072,7 +1140,7 @@ the line, to capture multiline input. (This only has effect if
              (add-hook 'web-mode-hook 'emmet-mode)
              (setq emmet-indentation 2))
 #+end_src
-** js
+*** js
 #+begin_src emacs-lisp :tangle yes
 (use-package json-mode :ensure t)
 (use-package json-snatcher :ensure t)
@@ -1089,7 +1157,7 @@ the line, to capture multiline input. (This only has effect if
 (add-hook 'babel-mode-hook 'mlb/babel-init)
 (add-to-list 'auto-mode-alist '(".js\\'" . babel-mode))
 #+end_src
-* Post Setup
+** Post Setup
 set up emacs server
 #+begin_src emacs-lisp :tangle yes
 (require 'server)
@@ -1113,11 +1181,11 @@ start in user home dir
 (cd "~")
 #+end_src
 
-* enable gc
+** enable gc
 #+begin_src emacs-lisp :tangle yes
 )
 #+end_src
-* Local variables
+** Local variables
 Create a buffer-local after-save-hook to tangle the lisp.
 
 ;; Local Variables:
