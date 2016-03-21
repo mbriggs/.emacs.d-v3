@@ -278,4 +278,4 @@
       (kill-region (region-beginning) (region-end))
     (kill-whole-line)))
 
-(provide 'editing)
+(provide 'mb-editing)

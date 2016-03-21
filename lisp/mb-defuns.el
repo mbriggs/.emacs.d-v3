@@ -1,4 +1,3 @@
-`
 (use-package dash :ensure t :init (dash-enable-font-lock))
 (use-package s :ensure t)
 
@@ -388,4 +387,4 @@
     (ignore-errors
       (robe-request "rails_refresh"))))
 
-(provide 'defuns)
+(provide 'mb-defuns)

@@ -1,4 +1,3 @@
-(provide 'mb-toolbox)
 
 (use-package dash :ensure t)
 (require 'dash)
@@ -65,3 +64,5 @@
          (assoc-string it *mb:tools*)
          (cdr it)
          (call-interactively it))))
+
+(provide 'mb-toolbox)
