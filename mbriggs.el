@@ -527,7 +527,7 @@
                                 html-mode nxml-mode sh-mode smarty-mode clojure-mode
                                 lisp-mode textile-mode markdown-mode tuareg-mode
                                 js3-mode css-mode less-css-mode sql-mode
-                                sql-interactive-mode
+                                sql-interactive-mode elixir-mode
                                 inferior-emacs-lisp-mode))
     (add-to-list 'ac-modes mode))
 
@@ -783,6 +783,8 @@
 (use-package bundler :ensure t)
 (use-package rubocop :ensure t)
 
+(add-to-list 'auto-mode-alist '("\\.irbrc\\'" . ruby-mode))
+
 (use-package rbenv
   :ensure t
   :init
@@ -795,7 +797,7 @@
   :init
   (setq rspec-use-rake-when-possible nil)
   (setq rspec-spec-command "rspec")
-  (setq rspec-use-spring-when-possible t)
+  (setq rspec-use-spring-when-possible nil)
   (add-hook 'ruby-mode-hook 'rspec-mode)
 
   :config
@@ -815,8 +817,7 @@
              ("M-t a" . rspec-verify-all))
   (ad-activate 'rspec-compile))
 
-(use-package
-  alchemist
+(use-package alchemist
   :ensure t
   :init
   (setq alchemist-test-status-modeline nil)
@@ -835,6 +836,11 @@
                                 :when '(("SPC" "RET"))
                                 :post-handlers '(:add my-elixir-do-end-close-action)
                                 :actions '(insert))))
+
+(use-package ac-alchemist
+  :ensure t
+  :init
+  (add-hook 'elixir-mode-hook 'ac-alchemist-setup))
 
 (defvar my-shells '("*main-shell*" "*alt-shell*"))
 (require 'shell)
