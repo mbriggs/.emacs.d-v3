@@ -193,6 +193,7 @@ configure emacs
   kept-new-versions 6
   kept-old-versions 2
   version-control t
+  setq tags-revert-without-query 1
   auto-save-default nil
   inhibit-startup-message t
   minibuffer-message-timeout 0.8
@@ -922,12 +923,13 @@ I wrote all this from scratch, but still barely understand how it works.
              ("A-l" . sp-forward-slurp-sexp)))
 #+end_src
 *** swiper
+
+
 #+begin_src emacs-lisp :tangle yes
 (use-package swiper
   :ensure t
   :commands (counsel-M-x swiper)
-  :bind* (("M-A" . counsel-M-x)
-          ("M-f" . swiper))
+  :bind* ("M-f" . swiper)
   :init
   (require 'ivy)
   (ivy-mode 1)
@@ -938,6 +940,12 @@ I wrote all this from scratch, but still barely understand how it works.
              ("M-n" . ivy-next-line)
              ("M-p" . ivy-previous-line))
   (define-key ivy-minibuffer-map (kbd "<return>") 'ivy-alt-done))
+#+end_src
+*** smex
+#+begin_src emacs-lisp :tangle yes
+(use-package smex
+   :ensure t
+   :bind* ("M-A" . smex))
 #+end_src
 *** markdown
 #+begin_src emacs-lisp :tangle yes
@@ -1023,20 +1031,8 @@ I wrote all this from scratch, but still barely understand how it works.
   :init
   (setq alchemist-test-status-modeline nil)
   (add-hook 'alchemist-iex-mode-hook 'evil-insert-state)
-  (add-hook 'elixir-mode-hook 'flycheck-mode)
-  :config
+  (add-hook 'elixir-mode-hook 'flycheck-mode))
 
-  (sp-with-modes '(elixir-mode)
-                 (sp-local-pair "->" "end"
-                                :when '(("RET"))
-                                :post-handlers '(:add my-elixir-do-end-close-action)
-                                :actions '(insert)))
-
-  (sp-with-modes '(elixir-mode)
-                 (sp-local-pair "do" "end"
-                                :when '(("SPC" "RET"))
-                                :post-handlers '(:add my-elixir-do-end-close-action)
-                                :actions '(insert))))
 
 (use-package ac-alchemist
   :ensure t

@@ -39,6 +39,7 @@
                      ("packages"                    . paradox-list-packages)
                      ("occur"                       . occur)
                      ("kill"                        . vkill)
+                     ("mix"                         . alchemist-mix)
                      ("rubocop"                     . rubocop-autocorrect-current-file)
                      ("emacs dir"                   . dired-to-emacs-dir)))
 

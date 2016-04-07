@@ -44,6 +44,7 @@
   kept-new-versions 6
   kept-old-versions 2
   version-control t
+  setq tags-revert-without-query 1
   auto-save-default nil
   inhibit-startup-message t
   minibuffer-message-timeout 0.8

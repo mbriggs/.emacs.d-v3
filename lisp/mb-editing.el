@@ -50,6 +50,8 @@
  ("M-l" . goto-line-with-feedback)
  ("M-q" . save-buffers-kill-emacs)
  ("M-o" . projectile-find-file)
+ ("<home>" . beginning-of-buffer)
+ ("<end>" . end-of-buffer)
  ("M-/" . mb/comment-or-uncomment-region-or-line)
 
  ("<f3>" . flycheck-list-errors)
