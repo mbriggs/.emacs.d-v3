@@ -44,6 +44,7 @@
   kept-new-versions 6
   kept-old-versions 2
   version-control t
+  tags-revert-without-query 1
   auto-save-default nil
   inhibit-startup-message t
   minibuffer-message-timeout 0.8
@@ -548,35 +549,6 @@
   (setq yas-snippet-dirs '("~/.emacs.d/snippets"))
   (yas-reload-all)
 
-  (defun do-yas-expand ()
-    (let ((yas-fallback-behavior 'return-nil))
-      (yas-expand)))
-
-  (defun mb/handle-tab ()
-    (interactive)
-    (cond
-     ((minibufferp)
-      (minibuffer-complete))
-     ((string= mode-name "Org")
-      (when (null (do-yas-expand))
-        (org-cycle)))
-     ((string= mode-name "Magit")
-      (magit-section-toggle (magit-current-section)))
-     ((string= mode-name "Shell")
-      (company-manual-begin))
-     (t
-      (indent-for-tab-command)
-      (if (or (not yas-minor-mode)
-              (null (do-yas-expand)))
-          (auto-complete)))))
-
-  (define-key yas-minor-mode-map [tab] nil)
-  (define-key yas-minor-mode-map (kbd "TAB") nil)
-
-  (define-key yas-keymap [tab] 'mb/handle-tab)
-  (define-key yas-keymap (kbd "TAB") 'mb/handle-tab)
-  (bind-key* "TAB" 'mb/handle-tab)
-
   ; hax for multiline mirrors
   (defun yas--mirror-update-display (mirror field)
     "Update MIRROR according to FIELD (and mirror transform)."
@@ -619,6 +591,93 @@
 
 (defun mb/ruby-initialize-args (args)
   (string-join (--map (concat "@" it " = " it) (s-split ", " args)) "\n"))
+
+(defun check-expansion ()
+  (save-excursion
+    (if (looking-at "\\_>") t
+      (backward-char 1)
+      (if (looking-at "\\.") t
+        (backward-char 1)
+        (if (looking-at "->") t nil)))))
+
+(defun do-yas-expand ()
+  (let ((yas/fallback-behavior 'return-nil))
+    (yas/expand)))
+
+(defun tab-indent-or-complete ()
+  (interactive)
+  (cond
+   ((minibufferp)
+    (minibuffer-complete))
+   ((string= mode-name "Magit")
+    (magit-section-toggle (magit-current-section)))
+   ((string= mode-name "Shell")
+    (company-manual-begin))
+   (t
+    (indent-for-tab-command)
+    (if (or (not yas/minor-mode)
+            (null (do-yas-expand)))
+        (if (check-expansion)
+            (progn
+              (company-manual-begin)
+              (if (null company-candidates)
+                  (progn
+                    (company-abort)
+                    (indent-for-tab-command)))))))))
+
+(defun tab-complete-or-next-field ()
+  (interactive)
+  (if (or (not yas/minor-mode)
+          (null (do-yas-expand)))
+      (if company-candidates
+
+          (company-complete-selection)
+        (when (check-expansion)
+          (company-manual-begin)
+          (when (null company-candidates)
+            (company-abort)
+            (yas-next-field))
+          (yas-next-field)))))
+
+(defun expand-snippet-or-complete-selection ()
+  (interactive)
+  (if (or (not yas/minor-mode)
+          (null (do-yas-expand))
+          (company-abort))
+      (company-complete-selection)))
+
+(defun abort-company-or-yas ()
+  (interactive)
+  (if (null company-candidates)
+      (yas-abort-snippet)
+    (company-abort)))
+
+(use-package yasnippet
+  :ensure t
+  :config
+  (define-key yas-minor-mode-map [tab] nil)
+  (define-key yas-minor-mode-map (kbd "TAB") nil)
+
+  (define-key yas-keymap [tab] 'tab-complete-or-next-field)
+  (define-key yas-keymap (kbd "TAB") 'tab-complete-or-next-field)
+  (define-key yas-keymap [(control tab)] 'yas-next-field)
+  (define-key yas-keymap (kbd "C-g") 'abort-company-or-yas))
+
+
+(use-package company-statistics :ensure t)
+(use-package company
+  :ensure t
+  :bind* (("<tab>" . tab-indent-or-complete)
+          ("C-<return>" . company-complete-common))
+  :init
+  (setq company-dabbrev-downcase nil)
+  (global-company-mode)
+  (company-statistics-mode)
+  (bind-keys :map company-active-map
+             ("<escape>" . company-abort)))
+
+
+(provide 'conf-company)
 
 (use-package org-mode
   :bind (("M-L" . org-store-link)
@@ -697,6 +756,14 @@
 
   :config
   (flycheck-add-mode 'javascript-eslint 'babel-mode))
+(use-package flycheck-elm
+  :ensure t
+  :init
+  (add-hook 'flycheck-mode-hook 'flycheck-elm-setup)
+  (add-hook 'elm-mode-hook 'flycheck-mode)
+  (add-hook 'elm-mode-hook (lambda ()
+    (message
+    (setq default-directory (locate-dominating-file default-directory "elm-package.json"))))))
 
 (defun wrap-round ()
   (interactive)
@@ -826,12 +893,6 @@
   (setq alchemist-test-status-modeline nil)
   (add-hook 'alchemist-iex-mode-hook 'evil-insert-state)
   (add-hook 'elixir-mode-hook 'flycheck-mode))
-
-
-(use-package ac-alchemist
-  :ensure t
-  :init
-  (add-hook 'elixir-mode-hook 'ac-alchemist-setup))
 
 (defvar my-shells '("*main-shell*" "*alt-shell*"))
 (require 'shell)
@@ -971,6 +1032,13 @@ the line, to capture multiline input. (This only has effect if
     :command "bin/label-bot"
     :ready-message "LabelBot Started"
     :cwd "~/label-bot"))
+
+(use-package elm-mode
+  :ensure t
+  :init
+  (with-eval-after-load 'company
+    (add-to-list 'company-backends 'company-elm))
+  (add-hook 'elm-mode-hook #'elm-oracle-setup-completion))
 
 (use-package web-mode
              :ensure t
