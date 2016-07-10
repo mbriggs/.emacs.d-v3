@@ -6,6 +6,7 @@
                         "Inside every large program, there is a small program trying to get out. - C.A.R. Hoare"
                         "Organizations which design systems are constrained to produce designs which are copies of the communication structures of these organizations. - Conway's Law"
                         "Just because something is easy to measure doesn't mean it's important. - D.H.H."
+                        "Duplication is far cheaper than the wrong abstraction. - Sandi Metz"
                         "A program is like a poem: you cannot write a poem without writing it. - E.W. Dijkstra"
                         "Simplicity is prerequisite for reliability. - E.W. Dijkstra"
                         "Good programmers don't just write programs. They build a working vocabulary. - Guy Steele"

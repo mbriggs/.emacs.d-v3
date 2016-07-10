@@ -918,10 +918,11 @@ I wrote all this from scratch, but still barely understand how it works.
 #+end_src
 *** multiple-cursors
 #+begin_src emacs-lisp :tangle yes
-(use-package multiple-cursors
+(use-package
+multiple-cursors
   :ensure t
-  :bind (("M-'" . mc/mark-next-like-this-word)
-         ("M-\"" . mc/skip-to-next-like-this))
+  :bind (("A-<down>" . mc/mark-next-like-this-word)
+         ("A-<up>" . mc/skip-to-next-like-this))
   :init
   (require 'multiple-cursors)
   (bind-keys :map rectangle-mark-mode-map
@@ -996,7 +997,7 @@ I wrote all this from scratch, but still barely understand how it works.
 #+begin_src emacs-lisp :tangle yes
 (use-package swiper
   :ensure t
-  :commands (counsel-M-x swiper)
+  :commands (swiper)
   :bind* ("M-f" . swiper)
   :init
   (require 'ivy)
@@ -1012,8 +1013,10 @@ I wrote all this from scratch, but still barely understand how it works.
 *** smex
 #+begin_src emacs-lisp :tangle yes
 (use-package smex
-   :ensure t
-   :bind* ("M-A" . smex))
+   :bind* ("M-A" . smex)
+   :init
+   (setq smex-completion-method 'ivy)
+   (setq ivy-re-builders-alist '((t . ivy--regex-fuzzy))))
 #+end_src
 *** markdown
 #+begin_src emacs-lisp :tangle yes
@@ -1098,8 +1101,12 @@ I wrote all this from scratch, but still barely understand how it works.
   :ensure t
   :init
   (setq alchemist-test-status-modeline nil)
-  (add-hook 'alchemist-iex-mode-hook 'evil-insert-state)
   (add-hook 'elixir-mode-hook 'flycheck-mode))
+
+(use-package ac-alchemist
+   :ensure t
+   :init
+   (add-hook 'elixir-mode-hook 'ac-alchemist-setup))
 #+end_src
 *** shell
 #+begin_src emacs-lisp :tangle yes

@@ -729,10 +729,11 @@
   :init
   (add-hook 'magit-mode-hook 'turn-on-magit-gh-pulls))
 
-(use-package multiple-cursors
+(use-package
+multiple-cursors
   :ensure t
-  :bind (("M-'" . mc/mark-next-like-this-word)
-         ("M-\"" . mc/skip-to-next-like-this))
+  :bind (("A-<down>" . mc/mark-next-like-this-word)
+         ("A-<up>" . mc/skip-to-next-like-this))
   :init
   (require 'multiple-cursors)
   (bind-keys :map rectangle-mark-mode-map
@@ -799,7 +800,7 @@
 
 (use-package swiper
   :ensure t
-  :commands (counsel-M-x swiper)
+  :commands (swiper)
   :bind* ("M-f" . swiper)
   :init
   (require 'ivy)
@@ -813,8 +814,10 @@
   (define-key ivy-minibuffer-map (kbd "<return>") 'ivy-alt-done))
 
 (use-package smex
-   :ensure t
-   :bind* ("M-A" . smex))
+   :bind* ("M-A" . smex)
+   :init
+   (setq smex-completion-method 'ivy)
+   (setq ivy-re-builders-alist '((t . ivy--regex-fuzzy))))
 
 (use-package markdown-mode
              :ensure t
@@ -891,8 +894,12 @@
   :ensure t
   :init
   (setq alchemist-test-status-modeline nil)
-  (add-hook 'alchemist-iex-mode-hook 'evil-insert-state)
   (add-hook 'elixir-mode-hook 'flycheck-mode))
+
+(use-package ac-alchemist
+   :ensure t
+   :init
+   (add-hook 'elixir-mode-hook 'ac-alchemist-setup))
 
 (defvar my-shells '("*main-shell*" "*alt-shell*"))
 (require 'shell)
