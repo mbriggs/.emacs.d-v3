@@ -23,6 +23,9 @@
  '(neo-smart-open t)
  '(neo-theme (quote ascii))
  '(neo-vc-integration (quote (face)))
+ '(package-selected-packages
+   (quote
+    (js-doc json-mode emmet-mode web-mode elm-mode prodigy ac-alchemist alchemist rspec-mode rbenv rubocop bundler inf-ruby jenkins markdown-mode swiper smartparens flycheck-elm flycheck multiple-cursors magit-gh-pulls magit diff-hl gh yagist git-timemachine company-statistics auto-yasnippet yasnippet auto-complete scss-mode sass-mode yaml-mode coffee-mode super-save volatile-highlights avy projectile fic-mode ws-butler smart-newline page-break-lines anzu etags-select expand-region vkill jump-char discover-my-major inf-mongo help-mode+ help-fns+ help+ define-word esup paradox ag htmlize imenu-anywhere helm s dash goto-chg highlight-cl highlight-escape-sequences highlight-numbers ample-theme use-package)))
  '(paradox-automatically-star t)
  '(protect-buffer-bury-p nil)
  '(safe-local-variable-values

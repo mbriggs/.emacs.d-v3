@@ -9,6 +9,9 @@
 (push "/usr/local/bin" exec-path)
 (push "/usr/bin" exec-path)
 (push "/usr/local/share/npm/bin" exec-path)
+(push "/usr/local/share/npm/bin" exec-path)
+(push (expand-file-name "~/.asdf/bin") exec-path)
+(push (expand-file-name "~/.asdf/shims") exec-path)
 (push (expand-file-name "~/scripts") exec-path)
 
 (setenv "PATH" (concat "/usr/local/bin:" (expand-file-name "~/scripts") ":" (getenv "PATH")))
@@ -117,7 +120,7 @@
 
 (setq-default cursor-type '(bar . 1))
 
-(let ((font "Operator Mono Light 16"))
+(let ((font "Operator Mono Light 19"))
   (set-frame-font font)
   (add-to-list 'default-frame-alist
                `(font . ,font)))
@@ -893,7 +896,12 @@ multiple-cursors
 (use-package alchemist
   :ensure t
   :init
-  (setq alchemist-test-status-modeline nil)
+  (setq
+    alchemist-test-status-modeline nil
+    alchemist-mix-command (expand-file-name "~/.asdf/shims/mix")
+    alchemist-iex-program-name (expand-file-name "~/.asdf/shims/iex")
+    alchemist-execute-command (expand-file-name "~/.asdf/shims/elixir")
+    alchemist-compile-command (expand-file-name "~/.asdf/shims/elixirc"))
   (add-hook 'elixir-mode-hook 'flycheck-mode))
 
 (use-package ac-alchemist
